@@ -2,8 +2,22 @@ const connection = require("../config/connectDB");
 
 const middlewareController = async(req, res, next) => {
     // xác nhận token
+    console.log("Inside auth function ghjkvbnmkvbjkl")
     const auth = req.cookies.auth;
-    if (!auth) return res.redirect("/login");
+    console.log(auth)
+    console.log(auth)
+
+    console.log(auth)
+
+    console.log(auth)
+
+    console.log(auth)
+
+    console.log(auth)
+
+    console.log(auth)
+
+    if (!auth || auth == "undefined") return res.redirect("http://localhost:4000/login");
     try {
         const [rows] = await connection.execute('SELECT `token`, `status` FROM `users` WHERE `token` = ? AND `veri` = 1', [auth]);
         if(!rows) {

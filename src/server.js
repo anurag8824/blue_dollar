@@ -8,6 +8,7 @@ const path = require('path');
 const { Server } = require('socket.io'); 
 const jwt = require('jsonwebtoken'); 
 const cookieParser = require('cookie-parser');
+const cors = require("cors");
 
 const configViewEngine = require('./config/configEngine'); 
 const routes = require('./routes/web');                   
@@ -18,6 +19,9 @@ const aviatorController = require('./controllers/aviatorController');
 const Dragon = require('./controllers/dragonController');
 const historyApiRoutes = require('../src/public/DragonTiger/assets/routes/historyApi');
 const adminApiRoutes = require('../src/public/DragonTiger/assets/routes/adminApi');
+const middlewareController = require("./controllers/middlewareController")
+
+
 
 
 
@@ -36,7 +40,7 @@ const io = new Server(server, {
 app.use(cookieParser()); 
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true })); 
-
+app.use(cors({ origin: 'http://localhost:4000', credentials: true }))
 const publicPath = path.resolve(__dirname, '../public'); 
 console.log("Setting static files directory to:", publicPath);
 app.use(express.static(publicPath));
@@ -71,17 +75,47 @@ io.use((socket, next) => {
 socketHandler(io);
 
 
-socketIoController.sendMessageAdmin(io);
-aviatorController.Aviator(io);        
-Dragon.Dragon(io);
+// socketIoController.sendMessageAdmin(io);
+// aviatorController.Aviator(io);        
+// Dragon.Dragon(io);
 // Dragon.userDekh(io);
 
 
 cronJobContronler.cronJobGame1p(io);
 app.use('/lottery', express.static(path.join(__dirname, 'lottery/build')));
+const check = async(req,res,next) =>{
+    console.log('i am inside auth ')
 
+    console.log('i am inside auth ')
 
-app.get('/lottery', (req, res) => {
+    console.log('i am inside auth ')
+
+    console.log('i am inside auth ')
+
+    console.log('i am inside auth ')
+
+    console.log('i am inside auth ')
+    console.log('i am inside auth ')
+    console.log('i am inside auth ')
+    console.log('i am inside auth ')
+    console.log('i am inside auth ')
+    console.log('i am inside auth ')
+    console.log('i am inside auth ')
+    console.log('i am inside auth ')
+    console.log('i am inside auth ')
+
+    const auth = req.cookies.auth
+    if(!auth){
+        console.log('i am inside auth ')
+        res.send("hello world")
+    }else{
+        console.log('i am inside auth else ')
+
+        next()
+    }
+}
+
+app.get(['/lottery', '/lottery/'],check, (req, res) => {
     res.sendFile(path.join(__dirname, 'lottery/build', 'index.html'));
   });
 

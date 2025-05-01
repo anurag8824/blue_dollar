@@ -6,8 +6,8 @@ let gameInitialized = false;
 let updateGameCoins = null;
 
 const placeFinalBetBtn = document.getElementById('place-final-bet-button');
-// const apiUrl = 'https://bluedoller.online/api/webapi/GetUserInfo';
 const apiUrl = 'https://bluedoller.online/api/webapi/GetUserInfo';
+// const apiUrl = 'http://localhost:4000/api/webapi/GetUserInfo';
 
 let historyCurrentPage = 1;
 const historyItemsPerPage = 10;
@@ -142,8 +142,8 @@ async function fetchBetHistory(phone, page = 1) {
 
 
     // --- API Call ---
-    // const historyApiUrl = `https://bluedoller.online/api/betting-history/${phone}?page=${page}&limit=${historyItemsPerPage}`; // Production
-    const historyApiUrl = `http://localhost:3000/api/betting-history/${phone}?page=${page}&limit=${historyItemsPerPage}`; // Local
+    const historyApiUrl = `https://bluedoller.online/api/betting-history/${phone}?page=${page}&limit=${historyItemsPerPage}`; // Production
+    // const historyApiUrl = `http://localhost:3000/api/betting-history/${phone}?page=${page}&limit=${historyItemsPerPage}`; // Local
     let fetchedPaginationData = null; // Store successful pagination data
 
     try {
@@ -315,7 +315,7 @@ function stopHistoryRefreshInterval() {
 
 async function fetchUserInfo() {
     try {
-        setupHistoryDOMElements();
+        // setupHistoryDOMElements();
 
         const response = await fetch(apiUrl, {
             method: 'GET',
@@ -325,6 +325,7 @@ async function fetchUserInfo() {
         let fetchedCoins = 0;
         let fetchedPhone = null;
         let dataSuccessfullyFetched = false;
+        console.log(response,"ftyuioftyguiortfyuij")
 
         if (response.ok) {
             const result = await response.json();
@@ -336,6 +337,8 @@ async function fetchUserInfo() {
 
                 document.getElementById('coins').textContent = Math.floor(fetchedCoins);
                 resultCoin = fetchedCoins;
+                // resultCoin = 1000;
+
                 userPhone = fetchedPhone; // Update global userPhone
 
                 // Inside fetchUserInfo, after getting fetchedPhone successfully:
@@ -410,8 +413,8 @@ function initGame(startingCoins, userPhoneNoParam) {
     const values = [ { name: "2", value: 2 }, { name: "3", value: 3 }, { name: "4", value: 4 }, { name: "5", value: 5 }, { name: "6", value: 6 }, { name: "7", value: 7 }, { name: "8", value: 8 }, { name: "9", value: 9 }, { name: "10", value: 10 }, { name: "J", value: 11 }, { name: "Q", value: 12 }, { name: "K", value: 13 }, { name: "A", value: 14 }, ];
     const fullDeck = [];
     suits.forEach((suit) => { values.forEach((val) => { fullDeck.push({ ...val, suit }); }); });
-    const socket = io("https://bluedoller.online");
     // const socket = io("https://bluedoller.online");
+    const socket = io("https://bluedoller.online");
 
     let stagedBets = { Dragon: 0, Tie: 0, Tiger: 0 };
     let confirmedBets = {};

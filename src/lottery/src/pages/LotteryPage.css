@@ -1,0 +1,299 @@
+.glow-dot {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    background: radial-gradient(circle, #ffffff, rgb(255, 255, 255));
+    border-radius: 50%;
+    box-shadow: 0 0 10px 5px rgb(255, 255, 255);
+    animation: moveAround 9s linear infinite;
+    pointer-events: none;
+    z-index: 10;
+  }
+  
+  @keyframes moveAround {
+    0%   { top: 0%; left: 0%; }
+    25%  { top: 0%; left: 100%; transform: translateX(-100%); }
+    50%  { top: 100%; left: 100%; transform: translate(-100%, -100%); }
+    75%  { top: 100%; left: 0%; transform: translateY(-100%); }
+    100% { top: 0%; left: 0%; }
+  }
+  
+
+  .image-glow-wrapper {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .image-glow {
+    border-radius: 12px;
+    transition: transform 0.4s ease;
+    z-index: 1;
+  }
+  
+  .image-glow-wrapper:hover .image-glow {
+    transform: scale(1.02);
+  }
+  
+  .image-glow-overlay {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      120deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    animation: shimmer 2.5s infinite;
+    z-index: 2;
+  }
+  
+  @keyframes shimmer {
+    0% {
+      left: -100%;
+    }
+    50% {
+      left: 100%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+  
+
+  .lottery-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #1e1e2f, #2a2a40);
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    width: 100%;
+    max-width: 20rem;
+    box-shadow: 0 0 20px rgba(255, 0, 150, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .lottery-card:hover {
+    box-shadow: 0 0 25px rgba(255, 100, 200, 0.7),
+                0 0 40px rgba(255, 255, 255, 0.2);
+    transform: scale(1.02);
+  }
+  
+  .lottery-btn {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    color: white;
+    border: none;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .lottery-btn-active {
+    background: linear-gradient(90deg, #28a745, #3ddc84);
+    box-shadow: 0 0 12px #3ddc84;
+    cursor: pointer;
+  }
+  
+  .lottery-btn-active:hover {
+    background: linear-gradient(90deg, #34d058, #00ffb2);
+    box-shadow: 0 0 20px #00ffb2, 0 0 40px rgba(0, 255, 178, 0.4);
+    transform: scale(1.05);
+  }
+  
+  .lottery-btn-disabled {
+    background: #444;
+    color: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  
+  .lottery-input {
+    border: 2px solid #fff;
+    border-radius: 0.375rem;
+    padding: 0.3rem 0.5rem;
+    width: 4rem;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #000;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+  }
+  
+  .lottery-input:focus {
+    outline: none;
+    border-color: #00ffb2;
+    box-shadow: 0 0 10px #00ffb2;
+  }
+  
+/* ribbon banner  */
+
+.ribbon-banner {
+    background: linear-gradient(90deg, #ff512f, #dd2476); /* trending pink-orange gradient */
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 0 20px rgba(255, 100, 180, 0.4);
+    margin-top: 1rem;
+    position: relative;
+    overflow: hidden;
+    animation: pulse-glow 3s infinite;
+  }
+  
+  .ribbon-text {
+    font-size: 0.875rem;
+    color: #ffffff;
+    text-align: center;
+    font-weight: 500;
+    line-height: 1.4rem;
+  }
+  
+  .ribbon-highlight {
+    display: block;
+    font-weight: 700;
+    color: #ffe600; /* bright yellow */
+    margin-top: 0.25rem;
+    font-size: 0.95rem;
+  }
+  
+  @keyframes pulse-glow {
+    0% {
+      box-shadow: 0 0 10px rgba(255, 100, 180, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 25px rgba(255, 100, 180, 0.7);
+    }
+    100% {
+      box-shadow: 0 0 10px rgba(255, 100, 180, 0.3);
+    }
+  }
+  
+
+
+  /* at the end banner  */
+
+  .lottery-info-container {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    background: linear-gradient(135deg, #2c3e50, #4ca1af);
+    border-radius: 1rem;
+    box-shadow: 0 0 20px rgba(76, 161, 175, 0.4);
+    animation: fadeInUp 1s ease-out;
+    /* max-width: 600px; */
+    max-width: 100%;
+    margin: auto;
+    color: white;
+  }
+  
+  .lottery-main-banner {
+    display: inline-block;
+    background: linear-gradient(90deg, #ffe600, #ff9800);
+    color: #222;
+    padding: 1rem 1.5rem;
+    border-radius: 0.75rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+    animation: pulseGlow 2.5s infinite;
+  }
+  
+  .lottery-time-box {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .lottery-label {
+    font-size: 0.9rem;
+    opacity: 0.85;
+    margin-bottom: 0.25rem;
+  }
+  
+  .lottery-time {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+  }
+  
+  /* Animations */
+  @keyframes pulseGlow {
+    0% {
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+    }
+    100% {
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  
+  /* header css from here  */
+
+  .game-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: linear-gradient(90deg, #1f4037, #99f2c8); /* Trendy green gradient */
+    padding: 0.75rem 1rem;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .header-content {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    /* flex-wrap: wrap; */
+
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 1rem;
+  }
+  
+  .round-id-input {
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+    pointer-events: none;
+    opacity: 0.9;
+    min-width: 180px;
+  }
+  
+  .date-time {
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: right;
+    text-wrap: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }

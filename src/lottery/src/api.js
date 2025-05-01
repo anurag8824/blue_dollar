@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "http://localhost:5000" });
+const API = axios.create({ baseURL: "https://bluedoller.online" });
 
-export const bookTicket = (ticket) => API.post("/tickets/book", ticket);
-export const getTickets = () => API.get("/tickets/history");
+export const bookTicket = (ticket) => API.post("/lottery/buy", ticket,{ withCredentials: true });
+export const getTickets = () => API.get("/lottery/history-one",{ withCredentials: true });
 export const announceWinners = (data) => API.post("/admin/announce", data);
 export const getWinners = () => API.get("/tickets/check-winners");
 

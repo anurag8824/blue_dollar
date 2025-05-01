@@ -14,6 +14,8 @@ export default function History() {
   useEffect(() => {
     // Fetch tickets
     getTickets().then(({ data }) => {
+
+      console.log(data,"historyn datta is here")
       const sortedTickets = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setTickets(sortedTickets.slice(0, 10));
     });

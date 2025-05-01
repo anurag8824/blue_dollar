@@ -11,6 +11,8 @@ const k5Controller = require('../controllers/k5Controller');
 const k3Controller = require('../controllers/k3Controller');
 const paymentController = require("../controllers/paymentController")
 const dragonController = require('../controllers/dragonController');
+const lottery = require ("../controllers/lottery")
+const middlewareReact = require("../controllers/middlewareReact")
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
@@ -336,6 +338,9 @@ router.post('/admin/manager/settings/increaseWallet',adminController.middlewareA
 
    //activity
 
+   router.get('/api/webapi/GetUserInfo', middlewareController, userController.userInfo); // get info account
+
+
    router.get("/activity/home",middlewareController,homeController.getActivityPage);
    router.get("/activity/records",middlewareController,userController.activityRecords);
    router.get("/activity/recordPage",middlewareController,homeController.activityRecords)
@@ -349,6 +354,13 @@ router.post('/admin/manager/settings/increaseWallet',adminController.middlewareA
    router.use('/dragon',middlewareController,dragonController.userDekh);
 
 
+
+   // lottery 
+
+   router.get("/check-lottery",lottery.checkLottery)
+
+    router.post("/lottery/buy",middlewareReact,lottery.ticketBook)
+    router.get("/lottery/history-one",middlewareReact,lottery.history)
 
 
 
