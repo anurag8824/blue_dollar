@@ -17,7 +17,7 @@ const middlewareController = async(req, res, next) => {
 
     console.log(auth)
 
-    if (!auth || auth == "undefined") return res.redirect("http://localhost:4000/login");
+    if (!auth || auth == "undefined") return res.redirect("/login");
     try {
         const [rows] = await connection.execute('SELECT `token`, `status` FROM `users` WHERE `token` = ? AND `veri` = 1', [auth]);
         if(!rows) {
