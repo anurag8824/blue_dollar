@@ -25,6 +25,15 @@ const LotteryPage = () => {
     const { value } = e.target;
     setInputs((prev) => ({ ...prev, [key]: value }));
   };
+
+
+  const [showPopup, setShowPopup] = useState(true);
+
+  const handleClose = () => {
+    setShowPopup(false);
+  };
+
+
   useEffect(() => {
     async function fetch() {
       try {
@@ -45,6 +54,17 @@ const LotteryPage = () => {
   
     fetch();
   }, []);
+
+
+  const [userData,setUserData] = useState(0)
+  useEffect(()=>{
+    axios.get("https://bluedoller.online/api/webapi/GetUserInfo").then((res)=>{
+      console.log(res,"user info")
+      setUserData(res?.data?.data?.money_user + res?.data?.data?.win_wallet)
+    }).catch((error)=>{
+      console.log(error)
+    })
+  },[])
   
   const isInputValid = (value, min, max) => {
     return value >= min && value <= max;
@@ -61,7 +81,13 @@ const LotteryPage = () => {
       return
     }
 
+    if(userData<price){
+       alert("Blance is too low ! ")
+       return
+    }
+
     try {
+      
       const response = await bookTicket({
         number,
         price,
@@ -71,7 +97,8 @@ const LotteryPage = () => {
       console.log(response ,"hjkl;hjkl")
       if (response.status ===200 || response.status === 234) {
         alert(`आपका टिकट (${number}) सफलतापूर्वक बुक हो गया है!`);
-        navigate("/history");
+        setUserData(userData-price)
+        // navigate("/history");
       } else if(response.status === 205){
         window.location.href = "/login"
       }
@@ -88,16 +115,20 @@ const LotteryPage = () => {
   return (
 
 
-    <><header className="game-header">
+    <div>
+    
+    
+    
+    <header  className="game-header ">
       <div className="header-content md:text-base text-xs md:justify-between justify-center text-gray-900 ">
         <input
           type="text"
-          value={`Round ID: 1245789`}
+          value={`ROUND Id ${roundId ? roundId : "-"}`}
           disabled
-          className="round-id-input" />
+          className="round-id-input text-xs" />
         <div className="date-tim text-nowrap  round-id-input">
-          <span>{new Date().toLocaleDateString()}</span>-
-          <span>{new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+          <span>${userData || 0 }</span>
+          {/* <span>{new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span> */}
         </div>
       </div>
     </header>
@@ -141,7 +172,7 @@ const LotteryPage = () => {
 
         <div className="lottery-info-container ">
           <p className="lottery-main-banner ribbon-banner">
-            रोज लाटरी खरीदें और पाइये LOTTERY PRICE का 20 गुना
+             अब हर week 1 लाख रुपये जीतने का मौका
           </p>
 
           <div className="lottery-time-box">
@@ -252,8 +283,64 @@ const LotteryPage = () => {
 
         {/* Footer */}
      
-      </div></>
+      </div>
+
+
+
+      {showPopup && (
+        <div style={popupOverlayStyle}>
+          <div style={popupContentStyle}>
+            <img
+              src="/images/popup.png"
+              alt="Popup Banner"
+              style={{ maxWidth: "100%", maxHeight: "80vh", borderRadius: '10px' }}
+            />
+            <button onClick={handleClose} style={closeButtonStyle}>X</button>
+          </div>
+        </div>
+      )}
+      
+      
+      
+      </div>
   );
 };
+
+
+// Styles
+const popupOverlayStyle = {
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: "100vw",
+  height: "100vh",
+  backgroundColor: "rgba(0, 0, 0, 0.7)",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  zIndex: 9999,
+};
+
+const popupContentStyle = {
+  position: "relative",
+  padding: "20px",
+};
+
+const closeButtonStyle = {
+  position: "absolute",
+  top: "-10px",
+  right: "-10px",
+  backgroundColor: "#fff",
+  border: "none",
+  borderRadius: "50%",
+  width: "30px",
+  height: "30px",
+  cursor: "pointer",
+  fontWeight: "bold",
+  fontSize: "16px",
+};
+
+
+
 
 export default LotteryPage;

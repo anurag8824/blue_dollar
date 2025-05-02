@@ -365,6 +365,13 @@ router.post('/admin/manager/settings/increaseWallet',adminController.middlewareA
     router.get("/lottery/history-one",middlewareReact,lottery.history)
 
 
+    router.get("/lottery/list",lottery.lotteryList)
+
+    router.post("/lottery/set-result",lottery.setLotteryResult);
+    router.post("/lottery/data",lottery.lotteryData)
+    
+
+
 
    return app.use("/", router)
 }

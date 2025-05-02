@@ -75,47 +75,17 @@ io.use((socket, next) => {
 socketHandler(io);
 
 
-// socketIoController.sendMessageAdmin(io);
-// aviatorController.Aviator(io);        
-// Dragon.Dragon(io);
+socketIoController.sendMessageAdmin(io);
+aviatorController.Aviator(io);        
+Dragon.Dragon(io);
 // Dragon.userDekh(io);
 
 
 cronJobContronler.cronJobGame1p(io);
 app.use('/lottery', express.static(path.join(__dirname, 'lottery/build')));
-const check = async(req,res,next) =>{
-    console.log('i am inside auth ')
 
-    console.log('i am inside auth ')
 
-    console.log('i am inside auth ')
-
-    console.log('i am inside auth ')
-
-    console.log('i am inside auth ')
-
-    console.log('i am inside auth ')
-    console.log('i am inside auth ')
-    console.log('i am inside auth ')
-    console.log('i am inside auth ')
-    console.log('i am inside auth ')
-    console.log('i am inside auth ')
-    console.log('i am inside auth ')
-    console.log('i am inside auth ')
-    console.log('i am inside auth ')
-
-    const auth = req.cookies.auth
-    if(!auth){
-        console.log('i am inside auth ')
-        res.send("hello world")
-    }else{
-        console.log('i am inside auth else ')
-
-        next()
-    }
-}
-
-app.get(['/lottery', '/lottery/'],check, (req, res) => {
+app.get(['/lottery', '/lottery/'], (req, res) => {
     res.sendFile(path.join(__dirname, 'lottery/build', 'index.html'));
   });
 
