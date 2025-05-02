@@ -105,7 +105,7 @@ const LotteryPage = () => {
     
     <div className="flex flex-col md:flex-row justify-between items-center mb-8">
           <div className="text-center md:text-left mb-4 md:mb-0">
-            <h2 className="text-xl md:text-2xl font-bold text-yellow-300">प्रत्येक रविवार <br /> LUCKY DRAW</h2>
+            <h2 className="text-xl md:text-2xl font-bold drop-shadow-[0_0_4px_red] text-yellow-300">प्रत्येक रविवार <br /> LUCKY DRAW</h2>
           </div>
           {/* <img src="/images/topbanner.webp"
     alt="Lottery Banner" className="w-full rounded-md shadow-slate-800 shadow-2xl max-w-2xl mx-auto" /> */}
@@ -118,7 +118,7 @@ const LotteryPage = () => {
           </div>
 
           <div className="text-center md:text-right mt-4 md:mt-0">
-            <h2 className="text-xl md:text-2xl font-bold text-yellow-300">प्रत्येक रविवार <br /> LUCKY DRAW</h2>
+            <h2 className="text-xl md:text-2xl font-bold drop-shadow-[0_0_4px_red] text-yellow-300">प्रत्येक रविवार <br /> LUCKY DRAW</h2>
           </div>
         </div>
 
@@ -137,8 +137,28 @@ const LotteryPage = () => {
 
         </div>
 
+
+
+        <div className="lottery-info-container ">
+          <p className="lottery-main-banner ribbon-banner">
+            रोज लाटरी खरीदें और पाइये LOTTERY PRICE का 20 गुना
+          </p>
+
+          <div className="lottery-time-box">
+            <div>
+            <p className="lottery-label ">
+  प्रत्येक सोमवार से शनिवार Lucky Draw ticket खरीदने का समय
+</p>              <p className="lottery-time text-red-500 drop-shadow-[0_0_4px_red]">24 hours anytime</p>
+            </div>
+            <div>
+              <p className="lottery-label">प्रत्येक रविवार को Lucky Draw खुलने का समय</p>
+              <p className="lottery-time text-red-500 drop-shadow-[0_0_4px_red]"> प्रातः - 10:15 to 12:15</p>
+            </div>
+          </div>
+        </div>
+
         {/* BIG LOTTERY NUMBERS */}
-        <h2 className="text-xl font-bold text-white mb-2">Big Lottery Tickets</h2>
+        <h2 className="text-xl font-bold text-white mt-6 mb-2">Big Lottery Tickets</h2>
         <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
           {bigLotteryTickets.map((item, index) => (
             <div key={index} style={{ borderColor: "#736ced" }} className="p-4 relative md:border rounded-md  flex flex-col items-center">
@@ -153,6 +173,14 @@ const LotteryPage = () => {
               </div>
               <p className="text-white font-semibold mb-2">{item.label}</p>
               <div className="lottery-card">
+              <input
+                  type="number"
+                  min="501"
+                  max="2500"
+                  value={inputs[`big-${index}`] || ""}
+                  onChange={(e) => handleChange(e, `big-${index}`)}
+                  placeholder="Number चुनें 501-1500"
+                  className="lottery-input" />
                 <button
                   disabled={!isInputValid(inputs[`big-${index}`], 501, 2500)}
                   onClick={() => handlePurchase(inputs[`big-${index}`], item.price, "big")}
@@ -162,70 +190,13 @@ const LotteryPage = () => {
                 >
                   BUY YOUR LOTTERY NUMBER
                 </button>
-                <input
-                  type="number"
-                  min="501"
-                  max="2500"
-                  value={inputs[`big-${index}`] || ""}
-                  onChange={(e) => handleChange(e, `big-${index}`)}
-                  placeholder="501-2500"
-                  className="lottery-input" />
+               
               </div>
             </div>
           ))}
         </div>
 
 
-
-        <div className="lottery-info-container ">
-          <p className="lottery-main-banner">
-            रोज लाटरी खरीदें और पाइये LOTTERY PRICE का 20 गुना
-          </p>
-
-          <div className="lottery-time-box">
-            <div>
-              <p className="lottery-label text-xs">प्रत्येक सोमवार से शनिवार Lucky Draw ticket खरीदने का समय</p>
-              <p className="lottery-time">24 hours anytime</p>
-            </div>
-            <div>
-              <p className="lottery-label">प्रत्येक रविवार को Lucky Draw खुलने का समय</p>
-              <p className="lottery-time"> प्रातः-10:15 to 12:15</p>
-            </div>
-          </div>
-        </div>
-
-        {/* SMALL LOTTERY NUMBERS */}
-        <h2 className="text-xl font-bold text-white mb-2 mt-8">Small Lottery Tickets</h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          {smallLotteryPrices.map((price, index) => (
-            <div key={`small-${index}`} style={{ borderColor: "#736ced" }} className="p-4 flex md:border rounded-md flex-col items-center">
-              <img
-                src={`/images/coins/${price}.png`}
-                alt={`Coin ${price} Rs`}
-                className="w-24 h-24 object-cover rounded-full hover:animate-spin shadow-md mb-2" />
-              <p className="text-white font-semibold mb-4">LOTTERY TICKET</p>
-              <div className="flex items-center justify-between gap-2 bg-black text-white px-3 py-2 rounded hover:bg-gray-800 w-full max-w-xs">
-                <button
-                  disabled={!isInputValid(inputs[`small-${index}`], 1, 500)}
-                  onClick={() => handlePurchase(inputs[`small-${index}`], price, "small")}
-                  className={`lottery-btn ${isInputValid(inputs[`small-${index}`], 1, 500) ? "lottery-btn-active" : "lottery-btn-disabled"}`}
-                >
-                  BUY YOUR LOTTERY NUMBER
-                </button>
-                <input
-                  type="number"
-                  min="1"
-                  max="500"
-                  value={inputs[`small-${index}`] || ""}
-                  onChange={(e) => handleChange(e, `small-${index}`)}
-                  placeholder="1-500"
-                  className="lottery-input" />
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Footer */}
         <div className="lottery-info-container">
           <p className="lottery-main-banner">
             रोज लाटरी खरीदें और पाइये LOTTERY PRICE का 20 गुना
@@ -234,14 +205,53 @@ const LotteryPage = () => {
           <div className="lottery-time-box">
             <div>
               <p className="lottery-label">LOTTERY खरीदने का TIME</p>
-              <p className="lottery-time">प्रातः - 10:15 TO 03:15</p>
+              <p className="lottery-time text-red-500 drop-shadow-[0_0_4px_red]">प्रातः - 10:15 to 03:15</p>
             </div>
             <div>
               <p className="lottery-label">LOTTERY खुलने का TIME</p>
-              <p className="lottery-time">सायं - 06:15</p>
+              <p className="lottery-time text-red-500 drop-shadow-[0_0_4px_red]">सायं - 06:15</p>
             </div>
           </div>
         </div>
+
+
+
+       
+
+        {/* SMALL LOTTERY NUMBERS */}
+        <h2 className="text-xl font-bold text-white mb-2 mt-8">Small Lottery Tickets</h2>
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
+          {smallLotteryPrices.map((price, index) => (
+            <div key={`small-${index}`} style={{ borderColor: "#736ced" }} className="p-4 flex md:border rounded-md flex-col items-center">
+              <img
+                src={`/images/coins/${price}.png`}
+                alt={`Coin ${price} Rs`}
+                className="w-24 h-24 object-cover rounded-full hover:animate-spin shadow-md mb-2" />
+              <p className="text-white font-semibold mb-4">LOTTERY TICKET</p>
+              <div className="lottery-card">
+              <input
+                  type="number"
+                  min="1"
+                  max="500"
+                  value={inputs[`small-${index}`] || ""}
+                  onChange={(e) => handleChange(e, `small-${index}`)}
+                  placeholder="Number चुनें 1-500"
+                  className="lottery-input" />
+                <button
+                  disabled={!isInputValid(inputs[`small-${index}`], 1, 500)}
+                  onClick={() => handlePurchase(inputs[`small-${index}`], price, "small")}
+                  className={`lottery-btn ${isInputValid(inputs[`small-${index}`], 1, 500) ? "lottery-btn-active" : "lottery-btn-disabled"}`}
+                >
+                  BUY YOUR LOTTERY NUMBER
+                </button>
+               
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Footer */}
+     
       </div></>
   );
 };
