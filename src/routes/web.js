@@ -262,6 +262,8 @@ router.post('/admin/manager/settings/increaseWallet',adminController.middlewareA
    router.get("/admin/manager/5d", adminController.middlewareAdminController, adminController.adminPage5d) // get info account
    router.get("/admin/manager/k3", adminController.middlewareAdminController, adminController.adminPageK3) // get info account
    router.get("/admin/manager/aviator", adminController.middlewareAdminController, adminController.adminPageAviator)
+   router.get("/admin/manager/lottery", adminController.middlewareAdminController, adminController.adminPageLottery)
+
    router.get("/admin/manager/dragon", adminController.middlewareAdminController, dragonController.adminPageDragon)
 
 

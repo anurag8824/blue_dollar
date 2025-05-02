@@ -82,7 +82,7 @@ const settings = async (req, res) => {
    return res.render("manage/settings.ejs")
 }
 
-const partner = ['/admin/manager/index','/admin/manager/index/3','/admin/manager/index/5','/admin/manager/index/10','/admin/manager/5d','/admin/manager/k3','/admin/manager/aviator','/api/webapi/admin/wingo/money_stats','/api/webapi/admin/totalJoin','/api/webapi/admin/change','/api/webapi/admin/5d/listOrders','/api/webapi/admin/5d/editResult','/api/webapi/admin/k3/editResult','/api/webapi/admin/k3/listOrders','/admin/aviatorResult'];
+const partner = ['/admin/manager/index','/admin/manager/index/3','/admin/manager/index/5','/admin/manager/index/10','/admin/manager/5d','/admin/manager/k3','/admin/manager/aviator', '/admin/manager/lottery','/api/webapi/admin/wingo/money_stats','/api/webapi/admin/totalJoin','/api/webapi/admin/change','/api/webapi/admin/5d/listOrders','/api/webapi/admin/5d/editResult','/api/webapi/admin/k3/editResult','/api/webapi/admin/k3/listOrders','/admin/aviatorResult'];
 // xác nhận admin
 const middlewareAdminController = async (req, res, next) => {
    // xác nhận token
@@ -2584,6 +2584,11 @@ const adminPageAviator = async (req,res)=>{
    return res.render('manage/aviator.ejs')
 }
 
+
+const adminPageLottery = async (req,res)=>{
+   return res.render('manage/lottery.ejs')
+}
+
 const aviatorResult =  async (req,res)=>{
    const {value} = req.body;
    const floatValue = parseFloat(value);
@@ -2719,6 +2724,7 @@ module.exports = {
    increaseWallet,
    listBetAviator,
    adminPageAviator,
+   adminPageLottery,
    aviatorResult,
    bulkSmsPage,
    filteredUser,
