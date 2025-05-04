@@ -20,6 +20,7 @@ const Dragon = require('./controllers/dragonController');
 const historyApiRoutes = require('../src/public/DragonTiger/assets/routes/historyApi');
 const adminApiRoutes = require('../src/public/DragonTiger/assets/routes/adminApi');
 const middlewareController = require("./controllers/middlewareController")
+// const lottery = require("./controllers/lottery")
 
 
 

@@ -2,6 +2,12 @@ const cron = require("node-cron");
 const connection = require("../config/connectDB"); // Update the path if needed
 
 // Generate round_id like "20250501-0925"
+
+console.log("lottey controller is runnnign !")
+
+
+
+
 function generateRoundId() {
   const now = new Date();
   const date = now.toISOString().split("T")[0].replace(/-/g, "");
@@ -10,12 +16,12 @@ function generateRoundId() {
 }
 
 // 🔁 Create new lottery round at 9:25 AM every day
-cron.schedule("15 10 * * *", async () => {
+cron.schedule("00 19 * * *", async () => {
   try {
     const roundId = generateRoundId();
 
-    const sql = `INSERT INTO lottery (round_id, status, result,type) VALUES (?, ?, ?)`;
-    await connection.query(sql, [roundId, true, false,small]);
+    const sql = `INSERT INTO lottery (round_id, status, result,type) VALUES (?, ?, ?,?)`;
+    await connection.query(sql, [roundId, true, false,"small"]);
 
     console.log(
       `✅ [${new Date().toLocaleString()}] New lottery round created: ${roundId}`
@@ -26,7 +32,7 @@ cron.schedule("15 10 * * *", async () => {
 });
 
 // 🔁 Close the round at 3:30 PM every day
-cron.schedule("15 15 * * *", async () => {
+cron.schedule("00 17 * * *", async () => {
   try {
     // Get the latest active lottery round
     const [rows] = await connection.query(
@@ -58,8 +64,8 @@ cron.schedule("0 0 * * 1", async () => {
   try {
     const roundId = generateRoundId();
 
-    const sql = `INSERT INTO lottery (round_id, status, result,type) VALUES (?, ?, ?)`;
-    await connection.query(sql, [roundId, true, false,big]);
+    const sql = `INSERT INTO lottery (round_id, status, result,type) VALUES (?, ?, ?,?)`;
+    await connection.query(sql, [roundId, true, false,"big"]);
 
     console.log(
       `✅ [${new Date().toLocaleString()}] New weekly lottery round created: ${roundId}`
@@ -97,14 +103,14 @@ cron.schedule("0 0 * * 0", async () => {
 
 const checkLottery = async (req, res) => {
   try {
-    const sql = `SELECT * FROM lottery ORDER BY id DESC LIMIT 1`;
+    const sql = `SELECT * FROM lottery WHERE status = 1 ORDER BY id DESC`;
     const [rows] = await connection.query(sql);
 
     if (!rows || rows.length === 0) {
       return res.status(404).json({ msg: "No lottery entries found." });
     }
 
-    return res.json({ latestLottery: rows[0] });
+    return res.json(rows);
   } catch (error) {
     console.error("Error fetching latest lottery:", error);
     return res.status(500).json({ msg: "Internal Server Error" });
@@ -112,7 +118,7 @@ const checkLottery = async (req, res) => {
 };
 
 const ticketBook = async (req, res) => {
-  const { roundId, number, price, type } = req.body;
+  const { betRoundId, number, price, type } = req.body;
 
   const auth = req.cookies.auth;
   console.log(auth, "auth is here from frontend ");
@@ -133,6 +139,7 @@ const ticketBook = async (req, res) => {
     if (user[0].win_wallet + user[0]?.money < price)
       return res.status(204).json({
         msg: "Balance is too less ! Please Recharge in Your Account ",
+        isStatus:false
       });
 
     if (user[0].win_wallet >= price) {
@@ -149,13 +156,13 @@ const ticketBook = async (req, res) => {
 
     const [row] = await connection.query(
       `SELECT * FROM lottery WHERE round_id = ?`,
-      [roundId]
+      [betRoundId]
     );
 
     if (!row || row.length === 0) {
       return res
         .status(200)
-        .json({ msg: "This Round ID Lottery doesn't exist!" });
+        .json({ msg: "This Round ID Lottery doesn't exist!" ,isStatus:false});
     }
 
     // Insert into lottery_bet table
@@ -164,12 +171,12 @@ const ticketBook = async (req, res) => {
           VALUES (?, ?, ?, ?,?)
         `;
 
-    await connection.query(insertQuery, [roundId, number, price, type, phone]);
+    await connection.query(insertQuery, [betRoundId, number, price, type, phone]);
 
-    return res.status(200).json({ msg: "Bet placed successfully!" });
+    return res.status(200).json({ msg: "Bet placed successfully!" , isStatus:true});
   } catch (error) {
     console.error("Error placing bet:", error);
-    return res.status(500).json({ msg: "Internal Server Error" });
+    return res.status(500).json({ msg: "Internal Server Error",isStatus:false });
   }
 };
 
