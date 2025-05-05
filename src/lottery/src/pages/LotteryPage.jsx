@@ -134,16 +134,42 @@ const LotteryPage = () => {
     <div>
       <header className="game-header ">
         <div className="header-content md:text-base text-xs md:justify-between justify-center text-gray-900 ">
+          {/* Back Button */}
+          <button
+            onClick={() => navigate(-1)}
+            className="back-button"
+            title="Go Back"
+          >
+        <svg
+  xmlns="http://www.w3.org/2000/svg"
+  className="w-6 h-6 text-black"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  strokeWidth={3}  // <— made bolder
+>
+  <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+</svg>
+
+          </button>    
+          {/* <i class="fa-solid fa-angle-left" onclick={() => window.history.back()} style={{color:"black"}}></i> */}
+         <div className="flex items-center gap-2">
+
+      
+
           <input
             type="text"
             value={`ROUND Id ${roundId ? roundId : "-"}`}
             disabled
             className="round-id-input text-xs"
           />
-          <div className="date-tim text-nowrap  round-id-input">
-            <span>${userData || 0}</span>
+
+<div className="date-tim text-nowrap  text-xs round-id-input">
+            <span>₹{userData || 0}</span>
             {/* <span>{new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span> */}
           </div>
+          </div>
+         
         </div>
       </header>
       <div
@@ -239,19 +265,19 @@ const LotteryPage = () => {
                 <input
                   type="number"
                   min="501"
-                  max="2500"
+                  max="1500"
                   value={inputs[`big-${index}`] || ""}
                   onChange={(e) => handleChange(e, `big-${index}`)}
                   placeholder="Number चुनें 501-1500"
                   className="lottery-input"
                 />
                 <button
-                  disabled={!isInputValid(inputs[`big-${index}`], 501, 2500)}
+                  disabled={!isInputValid(inputs[`big-${index}`], 501, 1500)}
                   onClick={() =>
                     handlePurchase(inputs[`big-${index}`], item.price, "big")
                   }
                   className={`lottery-btn ${
-                    isInputValid(inputs[`big-${index}`], 501, 2500)
+                    isInputValid(inputs[`big-${index}`], 501, 1500)
                       ? "lottery-btn-active"
                       : "lottery-btn-disabled"
                   }`}
@@ -311,7 +337,14 @@ const LotteryPage = () => {
                 >
                   BUY YOUR LOTTERY NUMBER
                 </button>
+
+               
               </div>
+              {/* <p className="text-white text-sm mt-2">10 winners in every lottery</p> */}
+              <p className="text-white text-sm mt-2 font-semibold text-center tracking-wide bg-gradient-to-r from-red-500 to-yellow-500 bg-clip-text text-transparent animate-pulse">
+  🎉 10 Winners in Every Lottery! 🎉
+</p>
+
             </div>
           ))}
         </div>

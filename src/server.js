@@ -41,7 +41,7 @@ const io = new Server(server, {
 app.use(cookieParser()); 
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true })); 
-app.use(cors({ origin: 'http://localhost:4000', credentials: true }))
+app.use(cors({ origin: ['http://localhost:4000', "https://bluedoller.online" ], credentials: true }))
 const publicPath = path.resolve(__dirname, '../public'); 
 console.log("Setting static files directory to:", publicPath);
 app.use(express.static(publicPath));
@@ -87,6 +87,10 @@ app.use('/lottery', express.static(path.join(__dirname, 'lottery/build')));
 
 
 app.get(['/lottery', '/lottery/'], (req, res) => {
+    res.sendFile(path.join(__dirname, 'lottery/build', 'index.html'));
+  });
+
+  app.get('/lottery/history', (req, res) => {
     res.sendFile(path.join(__dirname, 'lottery/build', 'index.html'));
   });
 

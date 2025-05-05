@@ -1678,24 +1678,37 @@
    border-radius: 0.26667rem;
    position: relative;
    /* border:2px red solid; */
-   box-shadow: 0 0 6px rgb(147, 3, 3), 0 0 8px rgb(157, 4, 4), 0 0 12px red;
+   /* box-shadow: 0 0 6px rgb(147, 3, 3), 0 0 8px rgb(157, 4, 4), 0 0 12px red; */
 
    width:100%;
    overflow: hidden;
    gap:4px;
-   margin-bottom: 20px;
+   /* margin-bottom: 20px; */
 }
 .game_menu .menu_box1 div span[data-v-790a0a45] {
-   font-size: 0.4rem;
-   line-height: 0.48rem;
-   font-weight: 700;
-   color: #fff;
-   text-align: 0.24rem;
-   margin: 8px;
+    font-size: 0.4rem;
+  line-height: 0.48rem;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  margin: 8px;
+  padding: 6px 10px;
+
+  background: linear-gradient(135deg, #ff6ec4 0%, #7873f5 100%);
+  border-radius: 9999px; /* pill shape */
+  box-shadow: 0 2px 8px rgba(255, 110, 196, 0.4), 0 0 4px rgba(120, 115, 245, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease-in-out;
+}
+
+.game_menu .menu_box1 div span[data-v-790a0a45]:hover {
+  box-shadow: 0 4px 12px rgba(255, 110, 196, 0.5), 0 0 6px rgba(120, 115, 245, 0.5);
+  transform: scale(1.05);
 }
 .game_menu .menu_box1 div img[data-v-790a0a45] {
-   margin-top: -0.42667rem;
-   margin-bottom: 0.13333rem;
+   /* margin-top: -0.42667rem; */
+   /* margin-bottom: 0.13333rem; */
 }
 .game_menu .menu_box1 div[data-v-790a0a45]:nth-child(1) {
    width: 8.30667rem;
@@ -1704,7 +1717,7 @@
 }
 .game_menu .menu_box1 div:nth-child(1) img[data-v-790a0a45] {
    width: 100%;
-   height: 4.30rem;
+   /* height: 4.30rem; */
 }
 .game_menu .menu_box1 div[data-v-790a0a45]:nth-child(2),
 .game_menu .menu_box1 div[data-v-790a0a45]:nth-child(3) {
@@ -1714,7 +1727,7 @@
 .game_menu .menu_box1 div:nth-child(2) img[data-v-790a0a45],
 .game_menu .menu_box1 div:nth-child(3) img[data-v-790a0a45] {
     width: 100%;
-    height: 4.30rem;
+    height: 6rem;
 }
 /* .game_menu .menu_box1 div[data-v-790a0a45]:nth-child(2) {
    background: url(/assets/png/lottery_bg-6a8872fc.png) no-repeat center center;

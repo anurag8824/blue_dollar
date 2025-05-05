@@ -161,7 +161,7 @@
                 <div data-v-106b99c8="" class="navbar-right"></div>
             </div>
 
-            <div data-v-3966082f="" class="box">
+            <div data-v-3966082f="" class="box" style="height: 100vh;overflow:auto;">
 
                 <div class="list" id="betHistoryContainer" data-v-3966082f=""> <!-- ID remains betHistoryContainer for original JS -->
                     <h4 class="history-title">Dragon Tiger History</h4>
@@ -198,7 +198,7 @@
 
 
                 <!-- ===== Aviator History Section (NEW HTML) ===== -->
-                <div class="list" id="aviatorHistoryContainer" data-v-3966082f=""> <!-- NEW ID -->
+                <div class="list" id="aviatorHistoryContainer" style="margin-bottom:40px" data-v-3966082f=""> <!-- NEW ID -->
                     <h4 class="history-title">Aviator History</h4>
                     <div class="table-responsive">
                         <table class="bet-history-table">
@@ -319,7 +319,7 @@
                      historyTableBody.html('<tr><td colspan="6" class="text-center text-muted" style="padding: 1rem 0;">Loading Dragon Tiger History...</td></tr>');
                 }
 
-                const apiUrl = `/api/betting-history/${historyUserPhone}?page=${page}&limit=${itemsPerPage}`;
+                const apiUrl = `https://bluedoller.online/api/betting-history/${historyUserPhone}?page=${page}&limit=${itemsPerPage}`;
 
                 $.ajax({
                     url: apiUrl, type: 'GET', dataType: 'json',
@@ -513,7 +513,7 @@
                 }
                 // avPaginationContainer.empty(); // Let render handle clearing
 
-                const apiUrl = `/api/aviator-history/${avUserPhone}?page=${page}&limit=${avItemsPerPage}`;
+                const apiUrl = `https://bluedoller.online/api/aviator-history/${avUserPhone}?page=${page}&limit=${avItemsPerPage}`;
                 // console.log("Fetching AV history from:", apiUrl);
 
                 $.ajax({
