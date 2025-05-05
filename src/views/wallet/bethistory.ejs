@@ -229,6 +229,38 @@
                 </div>
                 <!-- ===== End Aviator History Section ===== -->
 
+
+
+                <div class="list" id="lotteryHistoryContainer" style="margin-bottom:40px">
+                    <h4 class="history-title">Lottery History</h4>
+                    <div class="table-responsive">
+                        <table class="bet-history-table">
+                            <thead>
+                                <tr>
+                                    <th>Round ID</th>
+                                    <th>Bet Amt</th>
+                                    <th>Number</th>
+                                    <th>Type</th>
+                                    <th>Result</th>
+                                    <th>Phone</th>
+                                </tr>
+                            </thead>
+                            <tbody id="lotteryHistoryTableBody">
+                                <tr><td colspan="6" class="text-center" style="padding: 1rem 0; color: #969799; font-size: 0.37rem;">Loading Lottery History...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="lotteryHistoryLoading" style="display: none;" class="van-loading van-loading--sm">
+                        <span class="van-loading__spinner van-loading__spinner--circular">
+                            <svg viewBox="25 25 50 50" class="van-loading__circular"><circle cx="50" cy="50" r="20" fill="none"></circle></svg>
+                        </span>
+                    </div>
+                    <nav aria-label="Lottery Page navigation">
+                        <ul class="pagination" id="lotteryHistoryPagination"></ul>
+                    </nav>
+                </div>
+                
+
             </div> 
         </div> 
     </div> 
@@ -319,7 +351,7 @@
                      historyTableBody.html('<tr><td colspan="6" class="text-center text-muted" style="padding: 1rem 0;">Loading Dragon Tiger History...</td></tr>');
                 }
 
-                const apiUrl = `https://bluedoller.online/api/betting-history/${historyUserPhone}?page=${page}&limit=${itemsPerPage}`;
+                const apiUrl = `/api/betting-history/${historyUserPhone}?page=${page}&limit=${itemsPerPage}`;
 
                 $.ajax({
                     url: apiUrl, type: 'GET', dataType: 'json',
@@ -359,7 +391,7 @@
             }
 
              async function fetchInitialUserInfoAndHistory() { 
-                 const userInfoApiUrl = '/api/webapi/GetUserInfo';
+                 const userInfoApiUrl = 'https://bluedoller.online/api/webapi/GetUserInfo';
 
                  loadingIndicator.show(); 
                  historyTableBody.html('<tr><td colspan="6" class="text-center text-muted" style="padding: 1rem 0;">Loading User Info...</td></tr>');
@@ -513,7 +545,7 @@
                 }
                 // avPaginationContainer.empty(); // Let render handle clearing
 
-                const apiUrl = `https://bluedoller.online/api/aviator-history/${avUserPhone}?page=${page}&limit=${avItemsPerPage}`;
+                const apiUrl = `/api/aviator-history/${avUserPhone}?page=${page}&limit=${avItemsPerPage}`;
                 // console.log("Fetching AV history from:", apiUrl);
 
                 $.ajax({
@@ -546,7 +578,7 @@
             }
 
             async function fetchUserInfoForAviator() {
-                 const userInfoApiUrl = '/api/webapi/GetUserInfo';
+                 const userInfoApiUrl = 'https://bluedoller.online/api/webapi/GetUserInfo';
                  avTableBody.html('<tr><td colspan="6" class="text-center text-muted" style="padding: 1rem 0;">Verifying user for Aviator...</td></tr>');
                  avLoadingIndicator.show();
 
@@ -581,6 +613,78 @@
 
         }); 
     </script>
+
+
+<script>
+    async function fetchLotteryHistory(page = 1) {
+        const loading = document.getElementById('lotteryHistoryLoading');
+        const tableBody = document.getElementById('lotteryHistoryTableBody');
+        const pagination = document.getElementById('lotteryHistoryPagination');
+
+        tableBody.innerHTML = `<tr><td colspan="6" class="text-center" style="padding: 1rem 0; color: #969799;">Loading Lottery History...</td></tr>`;
+        loading.style.display = 'block';
+        pagination.innerHTML = '';
+
+        try {
+            // Step 1: Get user phone
+            const userInfoRes = await fetch('https://bluedoller.online/api/webapi/GetUserInfo');
+            const userInfo = await userInfoRes.json();
+
+            if (!userInfo.status || !userInfo.data || !userInfo.data.phone_user) {
+                throw new Error("Phone number not found in user info.");
+            }
+
+            const phone = userInfo.data.phone_user;
+
+            // Step 2: Get lottery history
+            const historyRes = await fetch(`/api/lottery-history/${phone}?page=${page}`);
+            const historyData = await historyRes.json();
+
+            if (!historyData.status) {
+                throw new Error("Failed to load lottery history.");
+            }
+
+            const bets = historyData.data;
+
+            if (bets.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="6" class="text-center" style="padding: 1rem 0; color: #969799;">No data found.</td></tr>`;
+            } else {
+                tableBody.innerHTML = bets.map(bet => `
+                    <tr>
+                        <td>${bet.roundId}</td>
+                        <td>${bet.price}</td>
+                        <td>${bet.number}</td>
+                        <td>${bet.type}</td>
+                        <td>${bet.result}</td>
+                        <td>${phone}</td>
+                    </tr>
+                `).join('');
+            }
+
+            // Step 3: Pagination
+            const { currentPage, totalPages } = historyData.pagination;
+            for (let i = 1; i <= totalPages; i++) {
+                pagination.innerHTML += `
+                    <li class="page-item ${i === currentPage ? 'active' : ''}">
+                        <a class="page-link" href="#" onclick="fetchLotteryHistory(${i}); return false;">${i}</a>
+                    </li>
+                `;
+            }
+
+        } catch (error) {
+            console.error('Lottery history error:', error);
+            tableBody.innerHTML = `<tr><td colspan="6" class="text-center text-danger">Error: ${error.message}</td></tr>`;
+        } finally {
+            loading.style.display = 'none';
+        }
+    }
+
+    // Load on page ready
+    document.addEventListener('DOMContentLoaded', () => {
+        fetchLotteryHistory();
+    });
+</script>
+
 
 </body>
 </html>

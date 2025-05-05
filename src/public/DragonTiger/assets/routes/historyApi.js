@@ -115,4 +115,55 @@ router.get('/aviator-history/:phone', async (req, res) => {
 });
 
 
+// Replace with your actual DB instance path
+
+router.get('/lottery-history/:phone', async (req, res) => {
+    const { phone } = req.params;
+    console.log(phone,"dgfhjgfdsghphone")
+    const page = parseInt(req.query.page, 10) || 1;
+    const limit = parseInt(req.query.limit, 10) || 10;
+    const offset = (page - 1) * limit;
+
+    if (!phone) {
+        return res.status(400).json({ error: 'Phone number is required.' });
+    }
+
+    try {
+        // Get filtered bet history
+        const [history] = await db.execute(
+            `SELECT roundId, price, number, type, result
+             FROM lottery_bet
+             WHERE phone = ?
+             LIMIT ? OFFSET ?`,
+            [phone, limit, offset]
+        );
+
+        // Get total count for pagination
+        const [[{ totalCount }]] = await db.execute(
+            `SELECT COUNT(*) as totalCount FROM lottery_bet WHERE phone = ?`,
+            [phone]
+        );
+
+        res.status(200).json({
+            status: true,
+            data: history,
+            pagination: {
+                currentPage: page,
+                totalPages: Math.ceil(totalCount / limit),
+                totalItems: totalCount,
+                itemsPerPage: limit
+            }
+        });
+
+    } catch (error) {
+        console.error(`Error fetching lottery history for phone ${phone}:`, error);
+        res.status(500).json({ status: false, error: 'Failed to retrieve lottery history.' });
+    }
+});
+
+
+
+
+
+
 module.exports = router;
