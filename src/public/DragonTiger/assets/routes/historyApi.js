@@ -5,8 +5,7 @@ const db = require('../.././../../config/connectDB');
 router.get('/betting-history/:phone', async (req, res) => {
     const { phone } = req.params;
     const page = parseInt(req.query.page, 10) || 1; 
-    const limit = parseInt(req.query.limit, 10) || 10; 
-    const offset = (page - 1) * limit;
+
 
     if (!phone) {
         return res.status(400).json({ error: 'Phone number parameter is required.' });
@@ -17,9 +16,8 @@ router.get('/betting-history/:phone', async (req, res) => {
             `SELECT id, roundId,matchId, card, amount, result, win_amount, created_at
              FROM dragon_tiger
              WHERE phone = ?
-             ORDER BY created_at DESC
-             LIMIT ? OFFSET ?`,
-            [phone, limit, offset]
+             ORDER BY created_at DESC`,
+            [phone]
         );
 
         const [[{ totalCount }]] = await db.execute(
@@ -34,12 +32,7 @@ router.get('/betting-history/:phone', async (req, res) => {
 
         res.status(200).json({
             data: formattedHistory,
-            pagination: {
-                currentPage: page,
-                totalPages: Math.ceil(totalCount / limit),
-                totalItems: totalCount,
-                itemsPerPage: limit
-            }
+            
         });
 
     } catch (error) {
@@ -52,9 +45,6 @@ router.get('/betting-history/:phone', async (req, res) => {
 // Aviator Betting History Endpoint
 router.get('/aviator-history/:phone', async (req, res) => {
     const { phone } = req.params;
-    const page = parseInt(req.query.page, 10) || 1; 
-    const limit = parseInt(req.query.limit, 10) || 10; 
-    const offset = (page - 1) * limit;
 
     if (!phone) {
         return res.status(400).json({
@@ -64,14 +54,7 @@ router.get('/aviator-history/:phone', async (req, res) => {
             pagination: null
         });
     }
-     if (page <= 0 || limit <= 0) {
-        return res.status(400).json({
-            status: false,
-            message: 'Page and limit query parameters must be positive integers.',
-            data: null,
-            pagination: null
-        });
-    }
+  
 
     try {
         const [aviatorHistory] = await db.execute(
@@ -79,9 +62,8 @@ router.get('/aviator-history/:phone', async (req, res) => {
                     DATE_FORMAT(time, '%Y-%m-%d %H:%i:%s') AS timeFormatted 
              FROM aviator_result 
              WHERE phone = ? 
-             ORDER BY time DESC 
-             LIMIT ? OFFSET ?`,
-            [phone, limit, offset]
+             ORDER BY time DESC `,
+            [phone]
         );
 
         const [[{ totalCount }]] = await db.execute(
@@ -94,12 +76,7 @@ router.get('/aviator-history/:phone', async (req, res) => {
             status: true,
             message: 'Aviator history fetched successfully.',
             data: aviatorHistory, 
-            pagination: {
-                currentPage: page,
-                totalPages: Math.ceil(totalCount / limit),
-                totalItems: totalCount,
-                itemsPerPage: limit
-            }
+           
         });
 
     } catch (error) {
@@ -109,7 +86,6 @@ router.get('/aviator-history/:phone', async (req, res) => {
             message: 'Failed to retrieve Aviator betting history.',
             error: error.message,
             data: null,
-            pagination: null
         });
     }
 });
@@ -121,8 +97,7 @@ router.get('/lottery-history/:phone', async (req, res) => {
     const { phone } = req.params;
     console.log(phone,"dgfhjgfdsghphone")
     const page = parseInt(req.query.page, 10) || 1;
-    const limit = parseInt(req.query.limit, 10) || 10;
-    const offset = (page - 1) * limit;
+
 
     if (!phone) {
         return res.status(400).json({ error: 'Phone number is required.' });
@@ -133,9 +108,8 @@ router.get('/lottery-history/:phone', async (req, res) => {
         const [history] = await db.execute(
             `SELECT roundId, price, number, type, result
              FROM lottery_bet
-             WHERE phone = ?
-             LIMIT ? OFFSET ?`,
-            [phone, limit, offset]
+             WHERE phone = ?`,
+            [phone,]
         );
 
         // Get total count for pagination
@@ -147,12 +121,7 @@ router.get('/lottery-history/:phone', async (req, res) => {
         res.status(200).json({
             status: true,
             data: history,
-            pagination: {
-                currentPage: page,
-                totalPages: Math.ceil(totalCount / limit),
-                totalItems: totalCount,
-                itemsPerPage: limit
-            }
+          
         });
 
     } catch (error) {

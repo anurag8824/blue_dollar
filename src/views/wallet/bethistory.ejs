@@ -357,7 +357,7 @@
                     url: apiUrl, type: 'GET', dataType: 'json',
                     success: function(response) {
                         let historyData = null; let paginationData = null;
-                        if (response && response.data && response.pagination) { 
+                        if (response && response.data) { 
                              historyData = response.data;
                              paginationData = response.pagination;
                         } else if (response && Array.isArray(response)) {
@@ -391,7 +391,7 @@
             }
 
              async function fetchInitialUserInfoAndHistory() { 
-                 const userInfoApiUrl = 'https://bluedoller.online/api/webapi/GetUserInfo';
+                 const userInfoApiUrl = '/api/webapi/GetUserInfo';
 
                  loadingIndicator.show(); 
                  historyTableBody.html('<tr><td colspan="6" class="text-center text-muted" style="padding: 1rem 0;">Loading User Info...</td></tr>');
@@ -553,7 +553,7 @@
                     success: function(response) {
                         // console.log("AV Raw Response:", response);
                         // Check structure { status: true, data: [...], pagination: {...} }
-                         if (response && response.status === true && response.data && response.pagination) {
+                         if (response && response.status === true && response.data ) {
                              renderAviatorTable(response.data);
                              renderAviatorPagination(response.pagination); // Call AV pagination func
                          } else {
@@ -578,7 +578,7 @@
             }
 
             async function fetchUserInfoForAviator() {
-                 const userInfoApiUrl = 'https://bluedoller.online/api/webapi/GetUserInfo';
+                 const userInfoApiUrl = '/api/webapi/GetUserInfo';
                  avTableBody.html('<tr><td colspan="6" class="text-center text-muted" style="padding: 1rem 0;">Verifying user for Aviator...</td></tr>');
                  avLoadingIndicator.show();
 
@@ -614,20 +614,19 @@
         }); 
     </script>
 
-
 <script>
-    async function fetchLotteryHistory(page = 1) {
+    async function fetchLotteryHistory() {
         const loading = document.getElementById('lotteryHistoryLoading');
         const tableBody = document.getElementById('lotteryHistoryTableBody');
         const pagination = document.getElementById('lotteryHistoryPagination');
 
         tableBody.innerHTML = `<tr><td colspan="6" class="text-center" style="padding: 1rem 0; color: #969799;">Loading Lottery History...</td></tr>`;
         loading.style.display = 'block';
-        pagination.innerHTML = '';
+        pagination.innerHTML = ''; // Clear pagination, but it's no longer used
 
         try {
             // Step 1: Get user phone
-            const userInfoRes = await fetch('https://bluedoller.online/api/webapi/GetUserInfo');
+            const userInfoRes = await fetch('/api/webapi/GetUserInfo');
             const userInfo = await userInfoRes.json();
 
             if (!userInfo.status || !userInfo.data || !userInfo.data.phone_user) {
@@ -636,8 +635,8 @@
 
             const phone = userInfo.data.phone_user;
 
-            // Step 2: Get lottery history
-            const historyRes = await fetch(`/api/lottery-history/${phone}?page=${page}`);
+            // Step 2: Get full lottery history (no pagination)
+            const historyRes = await fetch(`/api/lottery-history/${phone}`);
             const historyData = await historyRes.json();
 
             if (!historyData.status) {
@@ -661,16 +660,6 @@
                 `).join('');
             }
 
-            // Step 3: Pagination
-            const { currentPage, totalPages } = historyData.pagination;
-            for (let i = 1; i <= totalPages; i++) {
-                pagination.innerHTML += `
-                    <li class="page-item ${i === currentPage ? 'active' : ''}">
-                        <a class="page-link" href="#" onclick="fetchLotteryHistory(${i}); return false;">${i}</a>
-                    </li>
-                `;
-            }
-
         } catch (error) {
             console.error('Lottery history error:', error);
             tableBody.innerHTML = `<tr><td colspan="6" class="text-center text-danger">Error: ${error.message}</td></tr>`;
@@ -684,6 +673,7 @@
         fetchLotteryHistory();
     });
 </script>
+
 
 
 </body>
