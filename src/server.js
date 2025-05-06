@@ -45,9 +45,11 @@ app.use(cors({ origin: ['http://localhost:3000', "https://bluedoller.online", 'h
 const publicPath = path.resolve(__dirname, '../public'); 
 console.log("Setting static files directory to:", publicPath);
 app.use(express.static(publicPath));
-app.use(express.static(path.join(__dirname, 'lottery/build')));
+// app.use(express.static(path.join(__dirname, 'lottery/build')));
 // app.use("/lottery/images", express.static(path.join(__dirname, "lottery/build/images")));
 // app.use(express.static(path.join(__dirname, 'build')));
+// app.use('/lottery', express.static(path.join(__dirname, 'lottery/build')));
+
 
 const uploadsPath = path.resolve(__dirname, '../uploads'); 
 console.log("Setting uploads directory to:", uploadsPath);
