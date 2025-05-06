@@ -6,11 +6,11 @@ import axios from "axios";
 import "./LotteryPage.css";
 
 const bigLotteryTickets = [
-  { price: 500, label: "LUCKY PRICE 1 LAC", image: "/images/notes/500.png" },
-  { price: 251, label: "LUCKY PRICE 50,000", image: "/images/notes/251.png" },
-  { price: 151, label: "LUCKY PRICE 21,000", image: "/images/notes/151.png" },
-  { price: 100, label: "LUCKY PRICE 11,000", image: "/images/notes/100.png" },
-  { price: 51, label: "LUCKY PRICE 5,100", image: "/images/notes/51.png" },
+  { price: 500, label: "LUCKY PRICE 1 LAC", image: "/lottery/images/notes/500.png" },
+  { price: 251, label: "LUCKY PRICE 50,000", image: "/lottery/images/notes/251.png" },
+  { price: 151, label: "LUCKY PRICE 21,000", image: "/lottery/images/notes/151.png" },
+  { price: 100, label: "LUCKY PRICE 11,000", image: "/lottery/images/notes/100.png" },
+  { price: 51, label: "LUCKY PRICE 5,100", image: "/lottery/images/notes/51.png" },
 ];
 
 const smallLotteryPrices = [10, 20, 50, 100, 151, 251, 500, 1000];
@@ -254,7 +254,7 @@ const LotteryPage = () => {
               {/* <img src={item.image} alt={`${item.price} Rs`} className="w-full object-cover mb-2" style={{ maxHeight: "300px" }} /> */}
               <div className="relative image-glow-wrapper">
                 <img
-                  src={item.image}
+                  src={"/lottery" + item.image}
                   alt={`${item.price} Rs`}
                   className="w-full object-cover  image-glow"
                   style={{ maxHeight: "300px" }}
