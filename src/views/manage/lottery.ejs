@@ -18,6 +18,8 @@
     integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H"
     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
 
   <style>
     .box-xs {
@@ -148,6 +150,26 @@
       margin: auto;
     }
   </style>
+
+  <style>
+  .hover-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  .warning-icon {
+    display: none;
+    position: absolute;
+    top: -5px;
+    right: -25px;
+    font-size: 18px;
+    color: orange;
+  }
+
+  .hover-wrapper:hover .warning-icon {
+    display: inline;
+  }
+</style>
 </head>
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -296,6 +318,7 @@
 
 
             <div class="container mt-4" id="smallInputForm" style="display: none;">
+              Small Lottery Result Declared here
               <form id="multiInputForm">
                 <% const rowNames = ['10', '20', '50', '100', '151', '251', '500', '1000']; %>
                 <% rowNames.forEach(row => { %>
@@ -310,13 +333,16 @@
                     </div>
                   </div>
                 <% }); %>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit </button>
+                <span class="btn btn-danger" style="">केवल शाम को 5 से 7 बजे तक Submit करें
+                </span>
+               
               </form>
             </div>
 
-            Big Looterus
-
+          
             <div class="container mt-4" id="bigInputForm" style="display: none;">
+              Big Lottery Result Declared here
               <form id="bigInputForm">
                 <% const bigRows = ['500', '251', '151', '100', '51']; %>
                 <% bigRows.forEach(row => { %>
@@ -332,6 +358,10 @@
                   </div>
                 <% }); %>
                 <button type="submit" class="btn btn-success">Submit</button>
+                <span class="btn btn-danger" style="">केवल रविवार को Submit करें
+                </span>
+                
+
               </form>
             </div>
 
@@ -380,9 +410,11 @@ var selectedItem = null;
     fetch('/lottery/list')
       .then(response => response.json())
       .then(response => {
-        const data = response.data ; // Assuming response = { data: [...] }
+        const data22 = response.data ; // Assuming response = { data: [...] }
         const tbody = document.querySelector(".tableBody");
-        if (Array.isArray(data)) {
+        if (Array.isArray(data22)) {
+          const data = data22.filter(item => item.result === 0);
+
         data.forEach(item => {
           const row = document.createElement("tr");
 
@@ -398,7 +430,7 @@ var selectedItem = null;
 
           // Status
           const statusCell = document.createElement("td");
-          statusCell.textContent = item.status === 1 ? "Completed" : "Pending";
+          statusCell.textContent = item.status === 1 ? "Live" : "Closed";
           row.appendChild(statusCell);
 
 
@@ -504,10 +536,7 @@ var selectedItem = null;
           tbody.appendChild(row);
         });
       } else {
-      console.log("No Result Pending!");
-
-      alert(data)
-
+      alert(data22);
       
       // Optionally, display a message to the user
 

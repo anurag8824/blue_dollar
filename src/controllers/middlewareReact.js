@@ -30,12 +30,12 @@ const middlewareReact = async(req, res, next) => {
             console.log("Hello world Hahhahahah")
             next();
         } else {
-            return res.status(305).json({msg:"you are not login",
+            return res.status(205).json({msg:"you are not login",
                 stauts:false
             });
         }
     } catch (error) {
-        return res.status(305).json({msg:"you are not login",
+        return res.status(205).json({msg:"you are not login",
             stauts:false
         });
     }

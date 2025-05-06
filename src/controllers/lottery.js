@@ -233,6 +233,14 @@ const lottery_cal = async (id, data) => {
       [id]
     );
 
+    const Big_lottery = {
+      51:5100,
+      100:11000,
+      151:21000,
+      251:50000,
+      500:100000
+    }
+
     console.log(bet,"bet data jhkolphgvjbkl;")
 
     if (bet.length === 0) return true;
@@ -242,10 +250,26 @@ const lottery_cal = async (id, data) => {
       console.log(result,"result data ")
       const isWin = result.includes(item.number);
 
-      if (isWin) {
+      if (isWin && item.type == "small") {
         await connection.query(
           `UPDATE users SET win_wallet = win_wallet + ? WHERE phone = ?`,
           [item.price * 20, item.phone]
+        );
+
+        await connection.query(
+          `UPDATE lottery_bet SET result = ? WHERE id = ?`,
+          ["won", item.id]
+        );
+      } else {
+        await connection.query(
+          `UPDATE lottery_bet SET result = ? WHERE id = ?`,
+          ["loss", item.id]
+        );
+      }
+      if (isWin && item.type == "big") {
+        await connection.query(
+          `UPDATE users SET win_wallet = win_wallet + ? WHERE phone = ?`,
+          [Big_lottery[price], item.phone]
         );
 
         await connection.query(
@@ -288,10 +312,10 @@ const setLotteryResult = async (req, res) => {
     [roundId, type, JSON.stringify(data)]
   );
 
-  await connection.query(`UPDATE lottery SET result = ? WHERE round_id = ?`, [
-    true,
-    roundId,
-  ]);
+  await connection.query(
+    `UPDATE lottery SET result = ?, status = ? WHERE round_id = ?`,
+    [true, false, roundId.toString()]
+  );
 
   res.status(200).json({ msg: "Result Suceesfully Updated !" });
 };

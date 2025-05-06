@@ -69,6 +69,7 @@ const LotteryPage = () => {
       .then((res) => {
         console.log(res, "user info");
         setUserData(res?.data?.data?.money_user + res?.data?.data?.win_wallet);
+      
       })
       .catch((error) => {
         console.log(error);
@@ -90,7 +91,7 @@ const LotteryPage = () => {
       return;
     }
 
-    if (type == "big" && ! isbilottery) {
+    if (type == "big" && !isbilottery) {
       alert("Lottery is Closed Now ! Please Buy on Monday !");
       return;
     }
@@ -159,12 +160,12 @@ const LotteryPage = () => {
 
           <input
             type="text"
-            value={`ROUND Id ${roundId ? roundId : "-"}`}
+            value={`ROUND Id ${roundId || broundId ? roundId+broundId  : "-"}`}
             disabled
             className="round-id-input text-xs"
           />
 
-<div className="date-tim text-nowrap  text-xs round-id-input">
+     <div className="date-tim text-nowrap  text-xs round-id-input">
             <span>₹{userData || 0}</span>
             {/* <span>{new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span> */}
           </div>

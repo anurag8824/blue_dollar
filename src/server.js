@@ -41,7 +41,7 @@ const io = new Server(server, {
 app.use(cookieParser()); 
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true })); 
-app.use(cors({ origin: ['http://localhost:4000', "https://bluedoller.online" ], credentials: true }))
+app.use(cors({ origin: ['http://localhost:3000', "https://bluedoller.online", 'http://localhost:3001'  ], credentials: true }))
 const publicPath = path.resolve(__dirname, '../public'); 
 console.log("Setting static files directory to:", publicPath);
 app.use(express.static(publicPath));
