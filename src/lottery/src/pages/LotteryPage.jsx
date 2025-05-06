@@ -254,7 +254,7 @@ const LotteryPage = () => {
               {/* <img src={item.image} alt={`${item.price} Rs`} className="w-full object-cover mb-2" style={{ maxHeight: "300px" }} /> */}
               <div className="relative image-glow-wrapper">
                 <img
-                  src={"/lottery" + item.image}
+                  src={item.image}
                   alt={`${item.price} Rs`}
                   className="w-full object-cover  image-glow"
                   style={{ maxHeight: "300px" }}
