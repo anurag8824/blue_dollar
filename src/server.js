@@ -85,7 +85,9 @@ Dragon.Dragon(io);
 cronJobContronler.cronJobGame1p(io);
 app.use('/lottery', express.static(path.join(__dirname, 'lottery/build')));
 
-
+router.get("/", (req, res) => {
+      return res.redirect("/home")
+   })
 app.get(['/lottery', '/lottery/'], (req, res) => {
     res.sendFile(path.join(__dirname, 'lottery/build', 'index.html'));
   });
