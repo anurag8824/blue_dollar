@@ -191,7 +191,7 @@ const LotteryPage = () => {
 
           <div className="relative w-full max-w-2xl mx-auto">
             <img
-              src="/images/topbannner.png"
+              src="/lottery/images/topbannner.png"
               alt="Lottery Banner"
               className="w-full rounded-md shadow-slate-800 shadow-2xl"
             />
@@ -225,7 +225,7 @@ const LotteryPage = () => {
           </div>
           <div className="ribbon-banner">
             <img
-              src="/images/jkjk.png"
+              src="/lottery/images/jkjk.png"
               alt="Lottery Banner"
               className="w-full rounded-md shadow-slate-800 shadow-2xl"
             />
@@ -234,7 +234,7 @@ const LotteryPage = () => {
 
         <div className="lottery-info-container ">
           <img
-            src="/images/1.png"
+            src="/lottery/images/1.png"
             alt="Lottery Banner"
             className="w-full rounded-md shadow-slate-800 shadow-2xl"
           />
@@ -292,7 +292,7 @@ const LotteryPage = () => {
 
         <div className="lottery-info-container">
           <img
-            src="/images/2.png"
+            src="/lottery/images/2.png"
             alt="Lottery Banner"
             className="w-full rounded-md shadow-slate-800 shadow-2xl"
           />
@@ -310,7 +310,7 @@ const LotteryPage = () => {
               className="p-4 flex md:border rounded-md flex-col items-center"
             >
               <img
-                src={`/images/coins/${price}.png`}
+                src={`/lottery/images/coins/${price}.png`}
                 alt={`Coin ${price} Rs`}
                 className="w-24 h-24 object-cover rounded-full hover:animate-spin shadow-md mb-2"
               />
