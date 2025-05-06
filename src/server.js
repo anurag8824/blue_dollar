@@ -95,10 +95,10 @@ app.get(['/lottery', '/lottery/'], (req, res) => {
   });
 
 
-// app.all('*', (req, res) => {
+app.all('*', (req, res) => {
     
-//     return res.status(404).send("404 Not Found"); 
-// });
+    return res.status(404).send("404 Not Found"); 
+});
 
 // app.get('*', (req, res) => {
 //     res.sendFile(path.join(__dirname, 'build', 'index.html'));
