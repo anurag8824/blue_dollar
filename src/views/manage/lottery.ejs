@@ -299,13 +299,11 @@
                   <table class="table">
                     <thead>
                       <tr>
-                        <th>Phoneno</th>
                         <th>RoundId</th>
 
                         <th>Number</th>
                         <th>Price</th>
-                        <th>Type</th>
-                        <th>Result</th>
+                        <th>Count</th>
                       </tr>
                     </thead>
                     <tbody class="tableBodyUsers">
@@ -500,47 +498,43 @@
 
 
                               const inputData = userData.data;
+                              console.log(inputData ,"inputdata")
 
                               const grouped = {};
 
-                              inputData.data.forEach(item => {
-                                const key = `${item.roundId}-${item.number}-${item.price}`;
+inputData.forEach(item => {
+  const key = `${item.roundId}-${item.number}-${item.price}`;
 
-                                if (!grouped[key]) {
-                                  grouped[key] = {
-                                    roundId: item.roundId,
-                                    number: item.number,
-                                    price: item.price,
-                                    phones: new Set()
-                                  };
-                                }
+  if (!grouped[key]) {
+    grouped[key] = {
+      roundId: item.roundId,
+      number: item.number,
+      price: item.price,
+      phones: new Set(),
+      totalAmount: 0
+    };
+  }
 
-                                grouped[key].phones.add(item.phone);
-                              });
+  grouped[key].phones.add(item.phone);
+  grouped[key].totalAmount += item.price;
+});
 
-                              const result = Object.values(grouped)
-                                .filter(entry => entry.phones.size > 1) // only show numbers bought by 2+ users
-                                .map(entry => ({
-                                  roundId: entry.roundId,
-                                  number: entry.number,
-                                  price: entry.price,
-                                  count: entry.phones.size,
-                                  phones: Array.from(entry.phones)
-                                }));
+const result = Object.values(grouped).map(entry => ({
+  roundId: entry.roundId,
+  number: entry.number,
+  price: entry.price,
+  count: entry.phones.size,
+  phones: Array.from(entry.phones),
+  totalAmount: entry.totalAmount
+}));
 
-
-                                console.log(result,"result")
-
-
+console.log(result);
 
 
-
-                              users.forEach(user => {
+result.forEach(user => {
                                 const userRow = document.createElement('tr');
 
-                                const phoneCell = document.createElement('td');
-                                phoneCell.textContent = user.phone || '';
-                                userRow.appendChild(phoneCell);
+                          
 
                                 const roundIdCell = document.createElement('td');
                                 roundIdCell.textContent = user.roundId || '';
@@ -555,12 +549,10 @@
                                 userRow.appendChild(priceCell);
 
                                 const typeCell = document.createElement('td');
-                                typeCell.textContent = user.type || '';
+                                typeCell.textContent = user.count || '';
                                 userRow.appendChild(typeCell);
 
-                                const resultCell = document.createElement('td');
-                                resultCell.textContent = user.result || '';
-                                userRow.appendChild(resultCell);
+                               
 
                                 userTableBody.appendChild(userRow);
                               });
