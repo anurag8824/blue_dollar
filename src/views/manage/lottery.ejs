@@ -152,24 +152,24 @@
   </style>
 
   <style>
-  .hover-wrapper {
-    position: relative;
-    display: inline-block;
-  }
+    .hover-wrapper {
+      position: relative;
+      display: inline-block;
+    }
 
-  .warning-icon {
-    display: none;
-    position: absolute;
-    top: -5px;
-    right: -25px;
-    font-size: 18px;
-    color: orange;
-  }
+    .warning-icon {
+      display: none;
+      position: absolute;
+      top: -5px;
+      right: -25px;
+      font-size: 18px;
+      color: orange;
+    }
 
-  .hover-wrapper:hover .warning-icon {
-    display: inline;
-  }
-</style>
+    .hover-wrapper:hover .warning-icon {
+      display: inline;
+    }
+  </style>
 </head>
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -187,7 +187,7 @@
         </div>
         <section class="content">
           <div class="container-fluid">
-<!-- 
+            <!-- 
             <div class="row">
               <div class="col-12 col-sm-6 col-md-4">
                 <div class="info-box mb-3">
@@ -230,7 +230,7 @@
 
             <div class="result_box">
               <div>
-                <label for="result_next"> Lottey Mangment  </label>
+                <label for="result_next"> Lottey Mangment </label>
                 <input type="text" placeholder="Open your lottey" id="result_next">
                 <button id="resultButton_next">Submit</button>
               </div>
@@ -282,7 +282,7 @@
                       </div>
 
 
-                     
+
 
                       <div class="card-footer"></div>
                     </div>
@@ -320,47 +320,51 @@
             <div class="container mt-4" id="smallInputForm" style="display: none;">
               Small Lottery Result Declared here
               <form id="multiInputForm">
-                <% const rowNames = ['10', '20', '50', '100', '151', '251', '500', '1000']; %>
-                <% rowNames.forEach(row => { %>
-                  <div class="mb-3">
-                    <label class="form-label fw-bold text-capitalize"><%= row %></label>
-                    <div class="row">
-                      <% for(let i = 0; i < 10; i++) { %>
-                        <div class="col-1">
-                          <input type="number" class="form-control" id="<%= i + row %>" placeholder="<%= i %>">
-                        </div>
-                      <% } %>
+                <% const rowNames=['10', '20' , '50' , '100' , '151' , '251' , '500' , '1000' ]; %>
+                  <% rowNames.forEach(row=> { %>
+                    <div class="mb-3">
+                      <label class="form-label fw-bold text-capitalize">
+                        <%= row %>
+                      </label>
+                      <div class="row">
+                        <% for(let i=0; i < 10; i++) { %>
+                          <div class="col-1">
+                            <input type="number" class="form-control" id="<%= i + row %>" placeholder="<%= i %>">
+                          </div>
+                          <% } %>
+                      </div>
                     </div>
-                  </div>
-                <% }); %>
-                <button type="submit" class="btn btn-primary">Submit </button>
-                <span class="btn btn-danger" style="">केवल शाम को 5 से 7 बजे तक Submit करें
-                </span>
-               
+                    <% }); %>
+                      <button type="submit" class="btn btn-primary">Submit </button>
+                      <span class="btn btn-danger" style="">केवल शाम को 5 से 7 बजे तक Submit करें
+                      </span>
+
               </form>
             </div>
 
-          
+
             <div class="container mt-4" id="bigInputForm" style="display: none;">
               Big Lottery Result Declared here
               <form id="bigInputForm">
-                <% const bigRows = ['500', '251', '151', '100', '51']; %>
-                <% bigRows.forEach(row => { %>
-                  <div class="mb-3">
-                    <label class="form-label fw-bold text-capitalize"><%= row %></label>
-                    <div class="row">
-                      <% for(let i = 0; i < 10; i++) { %>
-                        <div class="col-1">
-                          <input type="number" class="form-control" id="<%= i + row %>" placeholder="<%= i %>">
-                        </div>
-                      <% } %>
+                <% const bigRows=['500', '251' , '151' , '100' , '51' ]; %>
+                  <% bigRows.forEach(row=> { %>
+                    <div class="mb-3">
+                      <label class="form-label fw-bold text-capitalize">
+                        <%= row %>
+                      </label>
+                      <div class="row">
+                        <% for(let i=0; i < 10; i++) { %>
+                          <div class="col-1">
+                            <input type="number" class="form-control" id="<%= i + row %>" placeholder="<%= i %>">
+                          </div>
+                          <% } %>
+                      </div>
                     </div>
-                  </div>
-                <% }); %>
-                <button type="submit" class="btn btn-success">Submit</button>
-                <span class="btn btn-danger" style="">केवल रविवार को Submit करें
-                </span>
-                
+                    <% }); %>
+                      <button type="submit" class="btn btn-success">Submit</button>
+                      <span class="btn btn-danger" style="">केवल रविवार को Submit करें
+                      </span>
+
 
               </form>
             </div>
@@ -401,151 +405,186 @@
 
 
 
-<script>
+            <script>
 
-var selectedItem = null;
+              var selectedItem = null;
 
-  document.addEventListener("DOMContentLoaded", function () {
-    // Fetch the lottery list
-    fetch('/lottery/list')
-      .then(response => response.json())
-      .then(response => {
-        const data22 = response.data ; // Assuming response = { data: [...] }
-        const tbody = document.querySelector(".tableBody");
-        if (Array.isArray(data22)) {
-          const data = data22.filter(item => item.result === 0);
+              document.addEventListener("DOMContentLoaded", function () {
+                // Fetch the lottery list
+                fetch('/lottery/list')
+                  .then(response => response.json())
+                  .then(response => {
+                    const data22 = response.data; // Assuming response = { data: [...] }
+                    const tbody = document.querySelector(".tableBody");
+                    if (Array.isArray(data22)) {
+                      const data = data22.filter(item => item.result === 0);
 
-        data.forEach(item => {
-          const row = document.createElement("tr");
+                      data.forEach(item => {
+                        const row = document.createElement("tr");
 
-          // Round ID
-          const roundCell = document.createElement("td");
-          roundCell.textContent = item.round_id;
-          row.appendChild(roundCell);
+                        // Round ID
+                        const roundCell = document.createElement("td");
+                        roundCell.textContent = item.round_id;
+                        row.appendChild(roundCell);
 
-          // Type
-          const typeCell = document.createElement("td");
-          typeCell.textContent = item.type;
-          row.appendChild(typeCell);
+                        // Type
+                        const typeCell = document.createElement("td");
+                        typeCell.textContent = item.type;
+                        row.appendChild(typeCell);
 
-          // Status
-          const statusCell = document.createElement("td");
-          statusCell.textContent = item.status === 1 ? "Live" : "Closed";
-          row.appendChild(statusCell);
-
-
-
-          // Result
-          const resultCell = document.createElement("td");
-          resultCell.textContent = item.result === 1 ? "Declared" : "Pending";
-          row.appendChild(resultCell);
-
-          // Action (View Button)
-          const actionCell = document.createElement("td");
-          const btn = document.createElement("button");
-          btn.textContent = "View";
-          btn.classList.add("btn", "btn-primary");
-
-          btn.onclick = () => {
-
-
-          selectedItem = item; 
-
-          console.log(selectedItem,"selelcted item")
-           
-          
-          // Show the user details section
-            const userDetailsSection = document.getElementById('user-details');
-            userDetailsSection.style.display = 'block';
-
-            // Clear previous user details
-            const userTableBody = document.querySelector('.tableBodyUsers');
-            userTableBody.innerHTML = '';
-
-
-            const smallForm = document.getElementById('smallInputForm');
-          const bigForm = document.getElementById('bigInputForm');
-
-          if (item.type === 'small') {
-            smallForm.style.display = 'block';
-            bigForm.style.display = 'none';
-          } else if (item.type === 'big') {
-            smallForm.style.display = 'none';
-            bigForm.style.display = 'block';
-          } else {
-            smallForm.style.display = 'none';
-            bigForm.style.display = 'none';
-          }
+                        // Status
+                        const statusCell = document.createElement("td");
+                        statusCell.textContent = item.status === 1 ? "Live" : "Closed";
+                        row.appendChild(statusCell);
 
 
 
-            console.log(item.round_id,"dddfdfdf")
+                        // Result
+                        const resultCell = document.createElement("td");
+                        resultCell.textContent = item.result === 1 ? "Declared" : "Pending";
+                        row.appendChild(resultCell);
 
-            // Send POST request with the selected item's data
-            fetch('/lottery/data', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({id:item.round_id})
-            })
-            .then(res => res.json())
-            .then(userData => {
-              console.log('API Response:', userData); // Log the response
-              // Further processing can be done here
+                        // Action (View Button)
+                        const actionCell = document.createElement("td");
+                        const btn = document.createElement("button");
+                        btn.textContent = "View";
+                        btn.classList.add("btn", "btn-primary");
+
+                        btn.onclick = () => {
 
 
-              const users = userData.data;
-              users.forEach(user => {
-                const userRow = document.createElement('tr');
+                          selectedItem = item;
 
-                const phoneCell = document.createElement('td');
-                phoneCell.textContent = user.phone || '';
-                userRow.appendChild(phoneCell);
+                          console.log(selectedItem, "selelcted item")
 
-                const roundIdCell = document.createElement('td');
-                roundIdCell.textContent = user.roundId || '';
-                userRow.appendChild(roundIdCell);
 
-                const numberCell = document.createElement('td');
-                numberCell.textContent = user.number || '';
-                userRow.appendChild(numberCell);
+                          // Show the user details section
+                          const userDetailsSection = document.getElementById('user-details');
+                          userDetailsSection.style.display = 'block';
 
-                const priceCell = document.createElement('td');
-                priceCell.textContent = user.price || '';
-                userRow.appendChild(priceCell);
+                          // Clear previous user details
+                          const userTableBody = document.querySelector('.tableBodyUsers');
+                          userTableBody.innerHTML = '';
 
-                const typeCell = document.createElement('td');
-                typeCell.textContent = user.type || '';
-                userRow.appendChild(typeCell);
 
-                const resultCell = document.createElement('td');
-                resultCell.textContent = user.result || '';
-                userRow.appendChild(resultCell);
+                          const smallForm = document.getElementById('smallInputForm');
+                          const bigForm = document.getElementById('bigInputForm');
 
-                userTableBody.appendChild(userRow);
+                          if (item.type === 'small') {
+                            smallForm.style.display = 'block';
+                            bigForm.style.display = 'none';
+                          } else if (item.type === 'big') {
+                            smallForm.style.display = 'none';
+                            bigForm.style.display = 'block';
+                          } else {
+                            smallForm.style.display = 'none';
+                            bigForm.style.display = 'none';
+                          }
+
+
+
+                          console.log(item.round_id, "dddfdfdf")
+
+                          // Send POST request with the selected item's data
+                          fetch('/lottery/data', {
+                            method: 'POST',
+                            headers: {
+                              'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ id: item.round_id })
+                          })
+                            .then(res => res.json())
+                            .then(userData => {
+                              console.log('API Response:', userData); // Log the response
+                              // Further processing can be done here
+
+
+                              const inputData = userData.data;
+
+                              const grouped = {};
+
+                              inputData.data.forEach(item => {
+                                const key = `${item.roundId}-${item.number}-${item.price}`;
+
+                                if (!grouped[key]) {
+                                  grouped[key] = {
+                                    roundId: item.roundId,
+                                    number: item.number,
+                                    price: item.price,
+                                    phones: new Set()
+                                  };
+                                }
+
+                                grouped[key].phones.add(item.phone);
+                              });
+
+                              const result = Object.values(grouped)
+                                .filter(entry => entry.phones.size > 1) // only show numbers bought by 2+ users
+                                .map(entry => ({
+                                  roundId: entry.roundId,
+                                  number: entry.number,
+                                  price: entry.price,
+                                  count: entry.phones.size,
+                                  phones: Array.from(entry.phones)
+                                }));
+
+
+                                console.log(result,"result")
+
+
+
+
+
+                              users.forEach(user => {
+                                const userRow = document.createElement('tr');
+
+                                const phoneCell = document.createElement('td');
+                                phoneCell.textContent = user.phone || '';
+                                userRow.appendChild(phoneCell);
+
+                                const roundIdCell = document.createElement('td');
+                                roundIdCell.textContent = user.roundId || '';
+                                userRow.appendChild(roundIdCell);
+
+                                const numberCell = document.createElement('td');
+                                numberCell.textContent = user.number || '';
+                                userRow.appendChild(numberCell);
+
+                                const priceCell = document.createElement('td');
+                                priceCell.textContent = user.price || '';
+                                userRow.appendChild(priceCell);
+
+                                const typeCell = document.createElement('td');
+                                typeCell.textContent = user.type || '';
+                                userRow.appendChild(typeCell);
+
+                                const resultCell = document.createElement('td');
+                                resultCell.textContent = user.result || '';
+                                userRow.appendChild(resultCell);
+
+                                userTableBody.appendChild(userRow);
+                              });
+                            })
+                            .catch(error => {
+                              console.error('Error fetching user data:', error);
+                            });
+                        };
+                        actionCell.appendChild(btn);
+                        row.appendChild(actionCell);
+
+                        tbody.appendChild(row);
+                      });
+                    } else {
+                      alert(data22);
+
+                      // Optionally, display a message to the user
+
+                    }
+                  })
+                  .catch(error => {
+                    console.error('Error fetching lottery list:', error);
+                  });
               });
-            })
-            .catch(error => {
-              console.error('Error fetching user data:', error);
-            });
-          };
-          actionCell.appendChild(btn);
-          row.appendChild(actionCell);
-
-          tbody.appendChild(row);
-        });
-      } else {
-      alert(data22);
-      
-      // Optionally, display a message to the user
-
-    }
-      })
-      .catch(error => {
-        console.error('Error fetching lottery list:', error);
-      });
-  });
 
 
 
@@ -554,124 +593,124 @@ var selectedItem = null;
 
 
 
-  // document.querySelectorAll('input[type="number"]').forEach((input, index, inputs) => {
-  //     input.addEventListener('keydown', function (e) {
-  //       if (e.key === 'Enter') {
-  //         e.preventDefault(); // Prevent form submit on Enter
-  //         if (input.value.trim() !== '') {
-  //           const next = inputs[index + 1];
-  //           if (next) {
-  //             next.focus();
-  //           }
-  //         } else {
-  //           input.classList.add('is-invalid'); // Optional visual feedback
-  //         }
-  //       }
-  //     });
-  
-  //     // Optional: remove error class when typing
-  //     input.addEventListener('input', () => {
-  //       input.classList.remove('is-invalid');
-  //     });
-  //   });
-  
-  document.querySelectorAll('input[type="number"]').forEach((input, index, inputs) => {
-      input.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') {
-          e.preventDefault(); // Prevent form submission
-          const next = inputs[index + 1];
-          if (next) {
-            next.focus();
-          }
-        }
-      });
-    });
-  
-    document.getElementById('multiInputForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-  
-      const rowNames = ['10', '20', '50', '100', '151', '251', '500', '1000'];
-      const result = {};
-  
-      rowNames.forEach(row => {
-        const values = [];
-        for (let i = 0; i < 10; i++) {
-          const input = document.getElementById(i + row);
-          const val = input.value.trim();
-          if (val !== '') {
-            values.push(Number(val)); // convert to number
-          }
-        }
-        result[row] = values;
-      });
-  
-      console.log("Filtered Numeric Values:", result);
-  
-    //   const payload = {
-    //   item: selectedItem,
-    //   data: result
-    // };
-  
-    console.log(selectedItem,"payload of small")
-  
-     // Send the data to the server
-    fetch('/lottery/set-result', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      // body: JSON.stringify(payload)const { type, data, roundId } = req.body;
-      body: JSON.stringify({type:selectedItem.type, data:result,roundId:selectedItem.round_id})
-    })
-    .then(response => response.json())
-    .then(responseData => {
-      console.log('API Response:gjkjhgf', responseData);
-      // Further processing can be done here
-    })
-    .catch(error => {
-      console.error('Error submitting data:', error);
-    });
-    });
-  
-    document.getElementById('bigInputForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-  
-      const bigRows = ['500', '251', '151', '100', '51'];
-      const result = {};
-  
-      bigRows.forEach(row => {
-        const values = [];
-        for (let i = 0; i < 10; i++) {
-          const input = document.getElementById(i + row);
-          const val = input.value.trim();
-          if (val !== '') {
-            values.push(Number(val)); // ensure number type
-          }
-        }
-        result[row] = values;
-      });
-  
-      console.log("Big Inputs Result:", result);
-  
-    
-  
-    fetch('/lottery/set-result', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({type:selectedItem.type, data:result,roundId:selectedItem.round_id})
-    })
-    .then(response => response.json())
-    .then(responseData => {
-      console.log('API Response:gjkjhgf biggg', responseData);
-      // Further processing can be done here
-    })
-    .catch(error => {
-      console.error('Error submitting data:', error);
-    });
-    });
-  </script>
+              // document.querySelectorAll('input[type="number"]').forEach((input, index, inputs) => {
+              //     input.addEventListener('keydown', function (e) {
+              //       if (e.key === 'Enter') {
+              //         e.preventDefault(); // Prevent form submit on Enter
+              //         if (input.value.trim() !== '') {
+              //           const next = inputs[index + 1];
+              //           if (next) {
+              //             next.focus();
+              //           }
+              //         } else {
+              //           input.classList.add('is-invalid'); // Optional visual feedback
+              //         }
+              //       }
+              //     });
+
+              //     // Optional: remove error class when typing
+              //     input.addEventListener('input', () => {
+              //       input.classList.remove('is-invalid');
+              //     });
+              //   });
+
+              document.querySelectorAll('input[type="number"]').forEach((input, index, inputs) => {
+                input.addEventListener('keydown', function (e) {
+                  if (e.key === 'Enter') {
+                    e.preventDefault(); // Prevent form submission
+                    const next = inputs[index + 1];
+                    if (next) {
+                      next.focus();
+                    }
+                  }
+                });
+              });
+
+              document.getElementById('multiInputForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const rowNames = ['10', '20', '50', '100', '151', '251', '500', '1000'];
+                const result = {};
+
+                rowNames.forEach(row => {
+                  const values = [];
+                  for (let i = 0; i < 10; i++) {
+                    const input = document.getElementById(i + row);
+                    const val = input.value.trim();
+                    if (val !== '') {
+                      values.push(Number(val)); // convert to number
+                    }
+                  }
+                  result[row] = values;
+                });
+
+                console.log("Filtered Numeric Values:", result);
+
+                //   const payload = {
+                //   item: selectedItem,
+                //   data: result
+                // };
+
+                console.log(selectedItem, "payload of small")
+
+                // Send the data to the server
+                fetch('/lottery/set-result', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  // body: JSON.stringify(payload)const { type, data, roundId } = req.body;
+                  body: JSON.stringify({ type: selectedItem.type, data: result, roundId: selectedItem.round_id })
+                })
+                  .then(response => response.json())
+                  .then(responseData => {
+                    console.log('API Response:gjkjhgf', responseData);
+                    // Further processing can be done here
+                  })
+                  .catch(error => {
+                    console.error('Error submitting data:', error);
+                  });
+              });
+
+              document.getElementById('bigInputForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const bigRows = ['500', '251', '151', '100', '51'];
+                const result = {};
+
+                bigRows.forEach(row => {
+                  const values = [];
+                  for (let i = 0; i < 10; i++) {
+                    const input = document.getElementById(i + row);
+                    const val = input.value.trim();
+                    if (val !== '') {
+                      values.push(Number(val)); // ensure number type
+                    }
+                  }
+                  result[row] = values;
+                });
+
+                console.log("Big Inputs Result:", result);
+
+
+
+                fetch('/lottery/set-result', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({ type: selectedItem.type, data: result, roundId: selectedItem.round_id })
+                })
+                  .then(response => response.json())
+                  .then(responseData => {
+                    console.log('API Response:gjkjhgf biggg', responseData);
+                    // Further processing can be done here
+                  })
+                  .catch(error => {
+                    console.error('Error submitting data:', error);
+                  });
+              });
+            </script>
 
 
 

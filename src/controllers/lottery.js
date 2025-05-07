@@ -36,7 +36,7 @@ cron.schedule("00 17 * * *", async () => {
   try {
     // Get the latest active lottery round
     const [rows] = await connection.query(
-      "SELECT round_id FROM lottery WHERE status = true ORDER BY id DESC LIMIT 1"
+      "SELECT round_id FROM lottery WHERE status = true AND type ='small' ORDER BY id DESC LIMIT 1"
     );
 
     if (rows.length === 0) {
@@ -80,7 +80,7 @@ cron.schedule("0 0 * * 1", async () => {
 cron.schedule("0 0 * * 0", async () => {
   try {
     const [rows] = await connection.query(
-      "SELECT round_id FROM lottery WHERE status = true ORDER BY id DESC LIMIT 1"
+      "SELECT round_id FROM lottery WHERE status = true AND type = 'big' ORDER BY id DESC LIMIT 1"
     );
 
     if (rows.length === 0) {
@@ -329,6 +329,8 @@ const lotteryData = async (req, res) => {
       "SELECT * FROM lottery_bet WHERE roundId = ?",
       [id]
     );
+
+
 
     return res.status(200).json({ data: rows });
   } catch (error) {
