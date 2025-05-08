@@ -87,7 +87,7 @@ const LotteryPage = () => {
     }
 
     if (type == "small" && ! issmlottery) {
-      alert("Lottery is Closed Now ! Please Try between 9.30 AM to 3.30 PM");
+      alert("Lottery is Closed Now ! Please Try after 7PM");
       return;
     }
 

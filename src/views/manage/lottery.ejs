@@ -266,6 +266,8 @@
                               <thead>
                                 <tr>
                                   <th>Round Id</th>
+                                  <th>Date</th>
+
                                   <th>Type</th>
                                   <th>Status</th>
                                   <th>Result</th>
@@ -317,6 +319,9 @@
 
             <div class="container mt-4" id="smallInputForm" style="display: none;">
               Small Lottery Result Declared here
+
+              <button type="button" id="generateSmallBtn" class="btn btn-warning mb-2">Generate Small Result</button>
+
               <form id="multiInputForm">
                 <% const rowNames=['10', '20' , '50' , '100' , '151' , '251' , '500' , '1000' ]; %>
                   <% rowNames.forEach(row=> { %>
@@ -343,8 +348,11 @@
 
             <div class="container mt-4" id="bigInputForm" style="display: none;">
               Big Lottery Result Declared here
-              <form id="bigInputForm">
-                <% const bigRows=['500', '251' , '151' , '100' , '51' ]; %>
+
+              <button type="button" id="generateBigBtn" class="btn btn-warning mb-2">Generate Big Result</button>
+
+              <form id="bigInputFormElement">
+                <% const bigRows=['b500', 'b251' , 'b151' , 'b100' , 'b51' ]; %>
                   <% bigRows.forEach(row=> { %>
                     <div class="mb-3">
                       <label class="form-label fw-bold text-capitalize">
@@ -360,7 +368,7 @@
                     </div>
                     <% }); %>
                       <button type="submit" class="btn btn-success">Submit</button>
-                      <span class="btn btn-danger" style="">केवल रविवार को Submit करें
+                      <span class="btn btn-danger" style="">केवल रविवार 10-12 को Submit करें
                       </span>
 
 
@@ -424,6 +432,23 @@
                         const roundCell = document.createElement("td");
                         roundCell.textContent = item.round_id;
                         row.appendChild(roundCell);
+
+                        const roundCell2 = document.createElement("td");
+
+// Parse the date string (assuming the format is YYYYMMDD-HHMM)
+const dateString = item.round_id; // e.g., "20250502-1212"
+const datePart = dateString.split('-')[0]; // Extract the date part "20250502"
+
+// Format the date part to MM/DD/YYYY
+const year = datePart.slice(0, 4);
+const month = datePart.slice(4, 6);
+const day = datePart.slice(6, 8);
+
+// Create a formatted date string
+const formattedDate = `${day}/${month}/${year}`;
+
+roundCell2.textContent = formattedDate;
+row.appendChild(roundCell2);
 
                         // Type
                         const typeCell = document.createElement("td");
@@ -528,7 +553,15 @@ const result = Object.values(grouped).map(entry => ({
   totalAmount: entry.totalAmount
 }));
 
-console.log(result);
+console.log(result,"rtyuyt");
+var neglectNumbers = result.map(item => item.number);
+console.log(neglectNumbers, "neglectNumbers");
+
+window.captureNeglectNumbers(neglectNumbers);
+
+
+
+
 
 
 result.forEach(user => {
@@ -664,10 +697,10 @@ result.forEach(user => {
                   });
               });
 
-              document.getElementById('bigInputForm').addEventListener('submit', function (e) {
+              document.getElementById('bigInputFormElement').addEventListener('submit', function (e) {
                 e.preventDefault();
 
-                const bigRows = ['500', '251', '151', '100', '51'];
+                const bigRows = ['b500', 'b251', 'b151', 'b100', 'b51'];
                 const result = {};
 
                 bigRows.forEach(row => {
@@ -679,7 +712,7 @@ result.forEach(user => {
                       values.push(Number(val)); // ensure number type
                     }
                   }
-                  result[row] = values;
+                  result[row.replace(/^b/, '')] = values;
                 });
 
                 console.log("Big Inputs Result:", result);
@@ -703,6 +736,68 @@ result.forEach(user => {
                   });
               });
             </script>
+
+
+
+<script>
+  function generateRandomNumbers(count, min, max, exclude) {
+    const generated = new Set();
+    const attemptsLimit = 5000;
+
+    let attempts = 0;
+    while (generated.size < count && attempts < attemptsLimit) {
+      const num = Math.floor(Math.random() * (max - min + 1)) + min;
+      if (!exclude.includes(num)) {
+        generated.add(num);
+      }
+      attempts++;
+    }
+
+    return Array.from(generated);
+  }
+
+  function fillInputs(prefixRows, formId, numberRange, excludeList) {
+    const allInputs = [];
+    prefixRows.forEach(row => {
+        row = String(row);
+      for (let i = 0; i < 10; i++) {
+        allInputs.push(`${i}${row}`);
+      }
+    });
+
+    const randomNumbers = generateRandomNumbers(allInputs.length, numberRange.min, numberRange.max, excludeList);
+    console.log(randomNumbers,"radndofd")
+
+    allInputs.forEach((id, index) => {
+      const input = document.getElementById(id);
+      if (input && randomNumbers[index] !== undefined) {
+        input.value = randomNumbers[index];
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    let neglectNumbers = [];
+
+    window.captureNeglectNumbers = function (nums) {
+      neglectNumbers = nums;
+    };
+
+    const generateSmallBtn = document.getElementById("generateSmallBtn");
+    if (generateSmallBtn) {
+      generateSmallBtn.addEventListener("click", () => {
+        fillInputs(['10', '20', '50', '100', '151', '251', '500', '1000'], 'multiInputForm', { min: 1, max: 500 }, neglectNumbers);
+      });
+    }
+
+    const generateBigBtn = document.getElementById("generateBigBtn");
+    if (generateBigBtn) {
+      generateBigBtn.addEventListener("click", () => {
+        fillInputs(['b500', 'b251', 'b151', 'b100', 'b51'], 'bigInputFormElement', { min: 501, max: 1500 }, neglectNumbers);
+      });
+    }
+  });
+</script>
 
 
 
