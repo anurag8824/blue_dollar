@@ -5,8 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Aviator | Management page</title>
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
@@ -14,9 +13,7 @@
   <link rel="stylesheet" href="/css/pages__parity.css">
   <link rel="stylesheet" href="/css/vantjs.css">
   <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
-  <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"
-    integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H"
-    crossorigin="anonymous"></script>
+  <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/css/admin.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
@@ -175,19 +172,19 @@
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   <div class="wrapper">
     <%- include('nav') %>
-      <div class="content-wrapper">
-        <div class="content-header">
-          <div class="container-fluid">
-            <div class="row mb-2">
-              <div class="col-sm-6">
-                <h1 class="m-0 ">Dashboard Lottery V5</h1>
-              </div>
+    <div class="content-wrapper">
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0 ">Dashboard Lottery V5</h1>
             </div>
           </div>
         </div>
-        <section class="content">
-          <div class="container-fluid">
-            <!-- 
+      </div>
+      <section class="content">
+        <div class="container-fluid">
+          <!-- 
             <div class="row">
               <div class="col-12 col-sm-6 col-md-4">
                 <div class="info-box mb-3">
@@ -228,29 +225,29 @@
 
             </div> -->
 
-            <div class="result_box">
-              <div>
-                <label for="result_next"> Lottey Mangment </label>
-                <input type="text" placeholder="Open your lottey" id="result_next">
-                <button id="resultButton_next">Submit</button>
-              </div>
-              <!-- <div>
+          <div class="result_box">
+            <div>
+              <label for="result_next"> Lottey Mangment </label>
+              <input type="text" placeholder="Open your lottey" id="result_next">
+              <button id="resultButton_next">Submit</button>
+            </div>
+            <!-- <div>
                 <button id="fly_now">FLY NOW</button>
               </div> -->
-            </div>
+          </div>
 
-            <!-- Main row -->
-            <div class="row">
-              <!-- Left col -->
-              <div class="col-md-12">
-                <!-- MAP & BOX PANE -->
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="card direct-chat direct-chat-warning">
-                      <div class="card-header">
-                        <h3 class="card-title">Bet Statistics</h3>
+          <!-- Main row -->
+          <div class="row">
+            <!-- Left col -->
+            <div class="col-md-12">
+              <!-- MAP & BOX PANE -->
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card direct-chat direct-chat-warning">
+                    <div class="card-header">
+                      <h3 class="card-title">Bet Statistics</h3>
 
-                        <!-- <div class="card-tools">
+                      <!-- <div class="card-tools">
                           <button type="button" class="btn btn-tool" data-card-widget="collapse">
                             <i class="fas fa-minus"></i>
                           </button>
@@ -258,546 +255,599 @@
                             <i class="fas fa-times"></i>
                           </button>
                         </div> -->
-                      </div>
-                      <div class="card-body">
-                        <div class="direct-chat-messages" style="min-height: 520px;">
-                          <div class="direct-chat-msg">
-                            <table class="table">
-                              <thead>
-                                <tr>
-                                  <th>Round Id</th>
-                                  <th>Date</th>
+                    </div>
+                    <div class="card-body">
 
-                                  <th>Type</th>
-                                  <th>Status</th>
-                                  <th>Result</th>
-                                  <th>Action</th>
-                                </tr>
-                              </thead>
-                              <tbody class="tableBody">
-                                <!-- Data will be inserted here -->
-                              </tbody>
-                            </table>
-                            <!---->
-                          </div>
+                      <div style="margin-bottom: 20px; margin-left: 20px;">
+                        <label for="fromDate">From: </label>
+                        <input style="color: black" type="date" id="fromDate">
+                        <label for="toDate">To: </label>
+                        <input style="color: black" type="date" id="toDate">
+                        <button style="color: black" id="filterBtn">Filter</button>
+                      </div>
+
+                      <div class="direct-chat-messages" style="min-height: 520px;">
+                        <div class="direct-chat-msg">
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th>Round Id</th>
+                                <th>Date</th>
+
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Result</th>
+                                <th>Action</th>
+                              </tr>
+                            </thead>
+                            <tbody class="tableBody">
+                              <!-- Data will be inserted here -->
+                            </tbody>
+                          </table>
+                          <!---->
                         </div>
                       </div>
-
-
-
-
-                      <div class="card-footer"></div>
                     </div>
+
+
+
+
+                    <div class="card-footer"></div>
                   </div>
                 </div>
+              </div>
 
+            </div>
+          </div>
+
+
+          <div class="card-body" id="user-details" style="display: none;">
+            <div class="direct-chat-messages" style="min-height: 520px;">
+              <div class="direct-chat-msg">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>RoundId</th>
+
+                      <th>Number</th>
+                      <th>Price</th>
+                      <th>Count</th>
+                    </tr>
+                  </thead>
+                  <tbody class="tableBodyUsers">
+                    <!-- User details will be populated here -->
+                  </tbody>
+                </table>
               </div>
             </div>
+          </div>
 
 
-            <div class="card-body" id="user-details" style="display: none;">
-              <div class="direct-chat-messages" style="min-height: 520px;">
-                <div class="direct-chat-msg">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>RoundId</th>
+          <div class="container mt-4" id="smallInputForm" style="display: none;">
+            Small Lottery Result Declared here
 
-                        <th>Number</th>
-                        <th>Price</th>
-                        <th>Count</th>
-                      </tr>
-                    </thead>
-                    <tbody class="tableBodyUsers">
-                      <!-- User details will be populated here -->
-                    </tbody>
-                  </table>
+            <button type="button" id="generateSmallBtn" class="btn btn-warning mb-2">Generate Small Result</button>
+
+            <form id="multiInputForm">
+              <% const rowNames=['10', '20' , '50' , '100' , '151' , '251' , '500' , '1000' ]; %>
+              <% rowNames.forEach(row=> { %>
+              <div class="mb-3">
+                <label class="form-label fw-bold text-capitalize">
+                  <%= row %>
+                </label>
+                <div class="row">
+                  <% for(let i=0; i < 10; i++) { %>
+                  <div class="col-1">
+                    <input type="number" class="form-control" id="<%= i + row %>" placeholder="<%= i %>">
+                  </div>
+                  <% } %>
                 </div>
               </div>
-            </div>
+              <% }); %>
+              <button type="submit" class="btn btn-primary">Submit </button>
+              <span class="btn btn-danger" style="">केवल शाम को 5 से 7 बजे तक Submit करें
+              </span>
+
+            </form>
+          </div>
 
 
-            <div class="container mt-4" id="smallInputForm" style="display: none;">
-              Small Lottery Result Declared here
+          <div class="container mt-4" id="bigInputForm" style="display: none;">
+            Big Lottery Result Declared here
 
-              <button type="button" id="generateSmallBtn" class="btn btn-warning mb-2">Generate Small Result</button>
+            <button type="button" id="generateBigBtn" class="btn btn-warning mb-2">Generate Big Result</button>
 
-              <form id="multiInputForm">
-                <% const rowNames=['10', '20' , '50' , '100' , '151' , '251' , '500' , '1000' ]; %>
-                  <% rowNames.forEach(row=> { %>
-                    <div class="mb-3">
-                      <label class="form-label fw-bold text-capitalize">
-                        <%= row %>
-                      </label>
-                      <div class="row">
-                        <% for(let i=0; i < 10; i++) { %>
-                          <div class="col-1">
-                            <input type="number" class="form-control" id="<%= i + row %>" placeholder="<%= i %>">
-                          </div>
-                          <% } %>
-                      </div>
-                    </div>
-                    <% }); %>
-                      <button type="submit" class="btn btn-primary">Submit </button>
-                      <span class="btn btn-danger" style="">केवल शाम को 5 से 7 बजे तक Submit करें
-                      </span>
-
-              </form>
-            </div>
+            <form id="bigInputFormElement">
+              <% const bigRows=['b500', 'b251' , 'b151' , 'b100' , 'b51' ]; %>
+              <% bigRows.forEach(row=> { %>
+              <div class="mb-3">
+                <label class="form-label fw-bold text-capitalize">
+                  <%= row %>
+                </label>
+                <div class="row">
+                  <% for(let i=0; i < 10; i++) { %>
+                  <div class="col-1">
+                    <input type="number" class="form-control" id="<%= i + row %>" placeholder="<%= i %>">
+                  </div>
+                  <% } %>
+                </div>
+              </div>
+              <% }); %>
+              <button type="submit" class="btn btn-success">Submit</button>
+              <span class="btn btn-danger" style="">केवल रविवार 10-12 को Submit करें
+              </span>
 
 
-            <div class="container mt-4" id="bigInputForm" style="display: none;">
-              Big Lottery Result Declared here
+            </form>
+          </div>
 
-              <button type="button" id="generateBigBtn" class="btn btn-warning mb-2">Generate Big Result</button>
+          <style>
+            .bt-st-row {
+              border-top: 1px solid #f4f4f4;
+            }
 
-              <form id="bigInputFormElement">
-                <% const bigRows=['b500', 'b251' , 'b151' , 'b100' , 'b51' ]; %>
-                  <% bigRows.forEach(row=> { %>
-                    <div class="mb-3">
-                      <label class="form-label fw-bold text-capitalize">
-                        <%= row %>
-                      </label>
-                      <div class="row">
-                        <% for(let i=0; i < 10; i++) { %>
-                          <div class="col-1">
-                            <input type="number" class="form-control" id="<%= i + row %>" placeholder="<%= i %>">
-                          </div>
-                          <% } %>
-                      </div>
-                    </div>
-                    <% }); %>
-                      <button type="submit" class="btn btn-success">Submit</button>
-                      <span class="btn btn-danger" style="">केवल रविवार 10-12 को Submit करें
-                      </span>
+            .list-orders .item {
+              padding: 5px 0;
+              text-align: center;
+            }
 
+            .goItem.dim {
+              color: #848484;
+            }
 
-              </form>
-            </div>
+            .row-break {
+              border-top: 1px solid #f4f4f4;
+            }
+          </style>
 
-            <style>
-              .bt-st-row {
-                border-top: 1px solid #f4f4f4;
-              }
-
-              .list-orders .item {
-                padding: 5px 0;
-                text-align: center;
-              }
-
-              .goItem.dim {
-                color: #848484;
-              }
-
-              .row-break {
-                border-top: 1px solid #f4f4f4;
-              }
-            </style>
-
-            <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
-            <script src="/plugins/jquery/jquery.min.js"></script>
-            <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-            <script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
-            <script src="/dist/js/adminlte.js"></script>
-            <script src="/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-            <script src="/plugins/raphael/raphael.min.js"></script>
-            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
-            <!-- <script src="/5d/admin/main.js"></script> -->
+          <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+          <script src="/plugins/jquery/jquery.min.js"></script>
+          <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+          <script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+          <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+          <script src="/dist/js/adminlte.js"></script>
+          <script src="/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+          <script src="/plugins/raphael/raphael.min.js"></script>
+          <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+          <!-- <script src="/5d/admin/main.js"></script> -->
 
 
 
 
 
+          <script>
+            var selectedItem = null;
 
-
-            <script>
-
-              var selectedItem = null;
-
-              document.addEventListener("DOMContentLoaded", function () {
-                // Fetch the lottery list
-                fetch('/lottery/list')
-                  .then(response => response.json())
-                  .then(response => {
-                    const data22 = response.data; // Assuming response = { data: [...] }
-                    const tbody = document.querySelector(".tableBody");
-                    if (Array.isArray(data22)) {
-                      const data = data22.filter(item => item.result === 0);
-
-                      data.forEach(item => {
-                        const row = document.createElement("tr");
-
-                        // Round ID
-                        const roundCell = document.createElement("td");
-                        roundCell.textContent = item.round_id;
-                        row.appendChild(roundCell);
-
-                        const roundCell2 = document.createElement("td");
-
-// Parse the date string (assuming the format is YYYYMMDD-HHMM)
-const dateString = item.round_id; // e.g., "20250502-1212"
-const datePart = dateString.split('-')[0]; // Extract the date part "20250502"
-
-// Format the date part to MM/DD/YYYY
-const year = datePart.slice(0, 4);
-const month = datePart.slice(4, 6);
-const day = datePart.slice(6, 8);
-
-// Create a formatted date string
-const formattedDate = `${day}/${month}/${year}`;
-
-roundCell2.textContent = formattedDate;
-row.appendChild(roundCell2);
-
-                        // Type
-                        const typeCell = document.createElement("td");
-                        typeCell.textContent = item.type;
-                        row.appendChild(typeCell);
-
-                        // Status
-                        const statusCell = document.createElement("td");
-                        statusCell.textContent = item.status === 1 ? "Live" : "Closed";
-                        row.appendChild(statusCell);
+            document.addEventListener("DOMContentLoaded", function() {
+              // Fetch the lottery list
 
 
 
-                        // Result
-                        const resultCell = document.createElement("td");
-                        resultCell.textContent = item.result === 1 ? "Declared" : "Pending";
-                        row.appendChild(resultCell);
 
-                        // Action (View Button)
-                        const actionCell = document.createElement("td");
-                        const btn = document.createElement("button");
-                        btn.textContent = "View";
-                        btn.classList.add("btn", "btn-primary");
-
-                        btn.onclick = () => {
-
-
-                          selectedItem = item;
-
-                          console.log(selectedItem, "selelcted item")
-
-
-                          // Show the user details section
-                          const userDetailsSection = document.getElementById('user-details');
-                          userDetailsSection.style.display = 'block';
-
-                          // Clear previous user details
-                          const userTableBody = document.querySelector('.tableBodyUsers');
-                          userTableBody.innerHTML = '';
-
-
-                          const smallForm = document.getElementById('smallInputForm');
-                          const bigForm = document.getElementById('bigInputForm');
-
-                          if (item.type === 'small') {
-                            smallForm.style.display = 'block';
-                            bigForm.style.display = 'none';
-                          } else if (item.type === 'big') {
-                            smallForm.style.display = 'none';
-                            bigForm.style.display = 'block';
-                          } else {
-                            smallForm.style.display = 'none';
-                            bigForm.style.display = 'none';
-                          }
+              const fromDateInput = document.getElementById('fromDate');
+              const toDateInput = document.getElementById('toDate');
+              const filterBtn = document.getElementById('filterBtn');
+              const tbody = document.querySelector(".tableBody");
+              // if (Array.isArray(data22)) {
+              //   const data = data22.filter(item => item.result === 0);
 
 
 
-                          console.log(item.round_id, "dddfdfdf")
 
-                          // Send POST request with the selected item's data
-                          fetch('/lottery/data', {
+              let globalData = [];
+              fetch('/lottery/list')
+                .then(response => response.json())
+                .then(response => {
+                  const data22 = response.data || []; // Assuming response = { data: [...] }
+
+                  globalData = data22.filter(item => item.result === 0);
+                  renderTable(globalData);
+
+                  filterBtn.addEventListener('click', () => {
+                    const fromDate = new Date(fromDateInput.value);
+                    const toDate = new Date(toDateInput.value);
+
+                    if (!fromDateInput.value || !toDateInput.value) {
+                      renderTable(globalData); // show all if no filter
+                      return;
+                    }
+
+                    const filtered = globalData.filter(item => {
+                      const roundDateStr = item.round_id.split('-')[0]; // "20250502"
+                      const roundDate = new Date(
+                        roundDateStr.slice(0, 4), // year
+                        roundDateStr.slice(4, 6) - 1, // month (0-based)
+                        roundDateStr.slice(6, 8) // day
+                      );
+                      return roundDate >= fromDate && roundDate <= toDate;
+                    });
+
+                    renderTable(filtered);
+                  });
+
+
+
+
+                  function renderTable(data) {
+                    tbody.innerHTML = '';
+                    data.forEach(item => {
+                      const row = document.createElement("tr");
+
+                      // Round ID
+                      const roundCell = document.createElement("td");
+                      roundCell.textContent = item.round_id;
+                      row.appendChild(roundCell);
+
+                      const roundCell2 = document.createElement("td");
+
+                      // Parse the date string (assuming the format is YYYYMMDD-HHMM)
+                      const dateString = item.round_id; // e.g., "20250502-1212"
+                      const datePart = dateString.split('-')[0]; // Extract the date part "20250502"
+
+                      // Format the date part to MM/DD/YYYY
+                      const year = datePart.slice(0, 4);
+                      const month = datePart.slice(4, 6);
+                      const day = datePart.slice(6, 8);
+
+                      // Create a formatted date string
+                      const formattedDate = `${day}/${month}/${year}`;
+
+                      roundCell2.textContent = formattedDate;
+                      row.appendChild(roundCell2);
+
+                      // Type
+                      const typeCell = document.createElement("td");
+                      typeCell.textContent = item.type;
+                      row.appendChild(typeCell);
+
+                      // Status
+                      const statusCell = document.createElement("td");
+                      statusCell.textContent = item.status === 1 ? "Live" : "Closed";
+                      row.appendChild(statusCell);
+
+
+
+                      // Result
+                      const resultCell = document.createElement("td");
+                      resultCell.textContent = item.result === 1 ? "Declared" : "Pending";
+                      row.appendChild(resultCell);
+
+                      // Action (View Button)
+                      const actionCell = document.createElement("td");
+                      const btn = document.createElement("button");
+                      btn.textContent = "View";
+                      btn.classList.add("btn", "btn-primary");
+
+                      btn.onclick = () => {
+
+
+                        selectedItem = item;
+
+                        console.log(selectedItem, "selelcted item")
+
+
+                        // Show the user details section
+                        const userDetailsSection = document.getElementById('user-details');
+                        userDetailsSection.style.display = 'block';
+
+                        // Clear previous user details
+                        const userTableBody = document.querySelector('.tableBodyUsers');
+                        userTableBody.innerHTML = '';
+
+
+                        const smallForm = document.getElementById('smallInputForm');
+                        const bigForm = document.getElementById('bigInputForm');
+
+                        if (item.type === 'small') {
+                          smallForm.style.display = 'block';
+                          bigForm.style.display = 'none';
+                        } else if (item.type === 'big') {
+                          smallForm.style.display = 'none';
+                          bigForm.style.display = 'block';
+                        } else {
+                          smallForm.style.display = 'none';
+                          bigForm.style.display = 'none';
+                        }
+
+
+
+                        console.log(item.round_id, "dddfdfdf")
+
+                        // Send POST request with the selected item's data
+                        fetch('/lottery/data', {
                             method: 'POST',
                             headers: {
                               'Content-Type': 'application/json'
                             },
-                            body: JSON.stringify({ id: item.round_id })
-                          })
-                            .then(res => res.json())
-                            .then(userData => {
-                              console.log('API Response:', userData); // Log the response
-                              // Further processing can be done here
-
-
-                              const inputData = userData.data;
-                              console.log(inputData ,"inputdata")
-
-                              const grouped = {};
-
-inputData.forEach(item => {
-  const key = `${item.roundId}-${item.number}-${item.price}`;
-
-  if (!grouped[key]) {
-    grouped[key] = {
-      roundId: item.roundId,
-      number: item.number,
-      price: item.price,
-      phones: new Set(),
-      totalAmount: 0
-    };
-  }
-
-  grouped[key].phones.add(item.phone);
-  grouped[key].totalAmount += item.price;
-});
-
-const result = Object.values(grouped).map(entry => ({
-  roundId: entry.roundId,
-  number: entry.number,
-  price: entry.price,
-  count: entry.phones.size,
-  phones: Array.from(entry.phones),
-  totalAmount: entry.totalAmount
-}));
-
-console.log(result,"rtyuyt");
-var neglectNumbers = result.map(item => item.number);
-console.log(neglectNumbers, "neglectNumbers");
-
-window.captureNeglectNumbers(neglectNumbers);
-
-
-
-
-
-
-result.forEach(user => {
-                                const userRow = document.createElement('tr');
-
-                          
-
-                                const roundIdCell = document.createElement('td');
-                                roundIdCell.textContent = user.roundId || '';
-                                userRow.appendChild(roundIdCell);
-
-                                const numberCell = document.createElement('td');
-                                numberCell.textContent = user.number || '';
-                                userRow.appendChild(numberCell);
-
-                                const priceCell = document.createElement('td');
-                                priceCell.textContent = user.price || '';
-                                userRow.appendChild(priceCell);
-
-                                const typeCell = document.createElement('td');
-                                typeCell.textContent = user.count || '';
-                                userRow.appendChild(typeCell);
-
-                               
-
-                                userTableBody.appendChild(userRow);
-                              });
+                            body: JSON.stringify({
+                              id: item.round_id
                             })
-                            .catch(error => {
-                              console.error('Error fetching user data:', error);
+                          })
+                          .then(res => res.json())
+                          .then(userData => {
+                            console.log('API Response:', userData); // Log the response
+                            // Further processing can be done here
+
+
+                            const inputData = userData.data;
+                            console.log(inputData, "inputdata")
+
+                            const grouped = {};
+
+                            inputData.forEach(item => {
+                              const key = `${item.roundId}-${item.number}-${item.price}`;
+
+                              if (!grouped[key]) {
+                                grouped[key] = {
+                                  roundId: item.roundId,
+                                  number: item.number,
+                                  price: item.price,
+                                  phones: new Set(),
+                                  totalAmount: 0
+                                };
+                              }
+
+                              grouped[key].phones.add(item.phone);
+                              grouped[key].totalAmount += item.price;
                             });
-                        };
-                        actionCell.appendChild(btn);
-                        row.appendChild(actionCell);
 
-                        tbody.appendChild(row);
-                      });
-                    } else {
-                      alert(data22);
+                            const result = Object.values(grouped).map(entry => ({
+                              roundId: entry.roundId,
+                              number: entry.number,
+                              price: entry.price,
+                              count: entry.phones.size,
+                              phones: Array.from(entry.phones),
+                              totalAmount: entry.totalAmount
+                            }));
 
-                      // Optionally, display a message to the user
+                            console.log(result, "rtyuyt");
+                            var neglectNumbers = result.map(item => item.number);
+                            console.log(neglectNumbers, "neglectNumbers");
 
-                    }
-                  })
-                  .catch(error => {
-                    console.error('Error fetching lottery list:', error);
-                  });
+                            window.captureNeglectNumbers(neglectNumbers);
+
+
+
+
+                            result.forEach(user => {
+                              const userRow = document.createElement('tr');
+
+
+
+                              const roundIdCell = document.createElement('td');
+                              roundIdCell.textContent = user.roundId || '';
+                              userRow.appendChild(roundIdCell);
+
+                              const numberCell = document.createElement('td');
+                              numberCell.textContent = user.number || '';
+                              userRow.appendChild(numberCell);
+
+                              const priceCell = document.createElement('td');
+                              priceCell.textContent = user.price || '';
+                              userRow.appendChild(priceCell);
+
+                              const typeCell = document.createElement('td');
+                              typeCell.textContent = user.count || '';
+                              userRow.appendChild(typeCell);
+
+
+
+                              userTableBody.appendChild(userRow);
+                            });
+                          })
+                          .catch(error => {
+                            console.error('Error fetching user data:', error);
+                          });
+                      };
+                      actionCell.appendChild(btn);
+                      row.appendChild(actionCell);
+
+                      tbody.appendChild(row);
+                    });
+                  }
+                })
+                .catch(error => {
+                  console.error('Error fetching lottery list:', error);
+                });
+            });
+
+
+
+
+            // document.querySelectorAll('input[type="number"]').forEach((input, index, inputs) => {
+            //     input.addEventListener('keydown', function (e) {
+            //       if (e.key === 'Enter') {
+            //         e.preventDefault(); // Prevent form submit on Enter
+            //         if (input.value.trim() !== '') {
+            //           const next = inputs[index + 1];
+            //           if (next) {
+            //             next.focus();
+            //           }
+            //         } else {
+            //           input.classList.add('is-invalid'); // Optional visual feedback
+            //         }
+            //       }
+            //     });
+
+            //     // Optional: remove error class when typing
+            //     input.addEventListener('input', () => {
+            //       input.classList.remove('is-invalid');
+            //     });
+            //   });
+
+            document.querySelectorAll('input[type="number"]').forEach((input, index, inputs) => {
+              input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                  e.preventDefault(); // Prevent form submission
+                  const next = inputs[index + 1];
+                  if (next) {
+                    next.focus();
+                  }
+                }
+              });
+            });
+
+            document.getElementById('multiInputForm').addEventListener('submit', function(e) {
+              e.preventDefault();
+
+              const rowNames = ['10', '20', '50', '100', '151', '251', '500', '1000'];
+              const result = {};
+
+              rowNames.forEach(row => {
+                const values = [];
+                for (let i = 0; i < 10; i++) {
+                  const input = document.getElementById(i + row);
+                  const val = input.value.trim();
+                  if (val !== '') {
+                    values.push(Number(val)); // convert to number
+                  }
+                }
+                result[row] = values;
               });
 
+              console.log("Filtered Numeric Values:", result);
 
+              //   const payload = {
+              //   item: selectedItem,
+              //   data: result
+              // };
 
+              console.log(selectedItem, "payload of small")
 
-
-
-
-
-              // document.querySelectorAll('input[type="number"]').forEach((input, index, inputs) => {
-              //     input.addEventListener('keydown', function (e) {
-              //       if (e.key === 'Enter') {
-              //         e.preventDefault(); // Prevent form submit on Enter
-              //         if (input.value.trim() !== '') {
-              //           const next = inputs[index + 1];
-              //           if (next) {
-              //             next.focus();
-              //           }
-              //         } else {
-              //           input.classList.add('is-invalid'); // Optional visual feedback
-              //         }
-              //       }
-              //     });
-
-              //     // Optional: remove error class when typing
-              //     input.addEventListener('input', () => {
-              //       input.classList.remove('is-invalid');
-              //     });
-              //   });
-
-              document.querySelectorAll('input[type="number"]').forEach((input, index, inputs) => {
-                input.addEventListener('keydown', function (e) {
-                  if (e.key === 'Enter') {
-                    e.preventDefault(); // Prevent form submission
-                    const next = inputs[index + 1];
-                    if (next) {
-                      next.focus();
-                    }
-                  }
-                });
-              });
-
-              document.getElementById('multiInputForm').addEventListener('submit', function (e) {
-                e.preventDefault();
-
-                const rowNames = ['10', '20', '50', '100', '151', '251', '500', '1000'];
-                const result = {};
-
-                rowNames.forEach(row => {
-                  const values = [];
-                  for (let i = 0; i < 10; i++) {
-                    const input = document.getElementById(i + row);
-                    const val = input.value.trim();
-                    if (val !== '') {
-                      values.push(Number(val)); // convert to number
-                    }
-                  }
-                  result[row] = values;
-                });
-
-                console.log("Filtered Numeric Values:", result);
-
-                //   const payload = {
-                //   item: selectedItem,
-                //   data: result
-                // };
-
-                console.log(selectedItem, "payload of small")
-
-                // Send the data to the server
-                fetch('/lottery/set-result', {
+              // Send the data to the server
+              fetch('/lottery/set-result', {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json'
                   },
                   // body: JSON.stringify(payload)const { type, data, roundId } = req.body;
-                  body: JSON.stringify({ type: selectedItem.type, data: result, roundId: selectedItem.round_id })
-                })
-                  .then(response => response.json())
-                  .then(responseData => {
-                    console.log('API Response:gjkjhgf', responseData);
-                    // Further processing can be done here
+                  body: JSON.stringify({
+                    type: selectedItem.type,
+                    data: result,
+                    roundId: selectedItem.round_id
                   })
-                  .catch(error => {
-                    console.error('Error submitting data:', error);
-                  });
+                })
+                .then(response => response.json())
+                .then(responseData => {
+                  console.log('API Response:gjkjhgf', responseData);
+                  // Further processing can be done here
+                })
+                .catch(error => {
+                  console.error('Error submitting data:', error);
+                });
+            });
+
+            document.getElementById('bigInputFormElement').addEventListener('submit', function(e) {
+              e.preventDefault();
+
+              const bigRows = ['b500', 'b251', 'b151', 'b100', 'b51'];
+              const result = {};
+
+              bigRows.forEach(row => {
+                const values = [];
+                for (let i = 0; i < 10; i++) {
+                  const input = document.getElementById(i + row);
+                  const val = input.value.trim();
+                  if (val !== '') {
+                    values.push(Number(val)); // ensure number type
+                  }
+                }
+                result[row.replace(/^b/, '')] = values;
               });
 
-              document.getElementById('bigInputFormElement').addEventListener('submit', function (e) {
-                e.preventDefault();
-
-                const bigRows = ['b500', 'b251', 'b151', 'b100', 'b51'];
-                const result = {};
-
-                bigRows.forEach(row => {
-                  const values = [];
-                  for (let i = 0; i < 10; i++) {
-                    const input = document.getElementById(i + row);
-                    const val = input.value.trim();
-                    if (val !== '') {
-                      values.push(Number(val)); // ensure number type
-                    }
-                  }
-                  result[row.replace(/^b/, '')] = values;
-                });
-
-                console.log("Big Inputs Result:", result);
+              console.log("Big Inputs Result:", result);
 
 
 
-                fetch('/lottery/set-result', {
+              fetch('/lottery/set-result', {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json'
                   },
-                  body: JSON.stringify({ type: selectedItem.type, data: result, roundId: selectedItem.round_id })
-                })
-                  .then(response => response.json())
-                  .then(responseData => {
-                    console.log('API Response:gjkjhgf biggg', responseData);
-                    // Further processing can be done here
+                  body: JSON.stringify({
+                    type: selectedItem.type,
+                    data: result,
+                    roundId: selectedItem.round_id
                   })
-                  .catch(error => {
-                    console.error('Error submitting data:', error);
-                  });
+                })
+                .then(response => response.json())
+                .then(responseData => {
+                  console.log('API Response:gjkjhgf biggg', responseData);
+                  // Further processing can be done here
+                })
+                .catch(error => {
+                  console.error('Error submitting data:', error);
+                });
+            });
+          </script>
+
+
+
+          <script>
+            function generateRandomNumbers(count, min, max, exclude) {
+              const generated = new Set();
+              const attemptsLimit = 5000;
+
+              let attempts = 0;
+              while (generated.size < count && attempts < attemptsLimit) {
+                const num = Math.floor(Math.random() * (max - min + 1)) + min;
+                if (!exclude.includes(num)) {
+                  generated.add(num);
+                }
+                attempts++;
+              }
+
+              return Array.from(generated);
+            }
+
+            function fillInputs(prefixRows, formId, numberRange, excludeList) {
+              const allInputs = [];
+              prefixRows.forEach(row => {
+                row = String(row);
+                for (let i = 0; i < 10; i++) {
+                  allInputs.push(`${i}${row}`);
+                }
               });
-            </script>
 
+              const randomNumbers = generateRandomNumbers(allInputs.length, numberRange.min, numberRange.max, excludeList);
+              console.log(randomNumbers, "radndofd")
 
+              allInputs.forEach((id, index) => {
+                const input = document.getElementById(id);
+                if (input && randomNumbers[index] !== undefined) {
+                  input.value = randomNumbers[index];
+                }
+              });
+            }
 
-<script>
-  function generateRandomNumbers(count, min, max, exclude) {
-    const generated = new Set();
-    const attemptsLimit = 5000;
+            document.addEventListener('DOMContentLoaded', function() {
+              let neglectNumbers = [];
 
-    let attempts = 0;
-    while (generated.size < count && attempts < attemptsLimit) {
-      const num = Math.floor(Math.random() * (max - min + 1)) + min;
-      if (!exclude.includes(num)) {
-        generated.add(num);
-      }
-      attempts++;
-    }
+              window.captureNeglectNumbers = function(nums) {
+                neglectNumbers = nums;
+              };
 
-    return Array.from(generated);
-  }
+              const generateSmallBtn = document.getElementById("generateSmallBtn");
+              if (generateSmallBtn) {
+                generateSmallBtn.addEventListener("click", () => {
+                  fillInputs(['10', '20', '50', '100', '151', '251', '500', '1000'], 'multiInputForm', {
+                    min: 1,
+                    max: 500
+                  }, neglectNumbers);
+                });
+              }
 
-  function fillInputs(prefixRows, formId, numberRange, excludeList) {
-    const allInputs = [];
-    prefixRows.forEach(row => {
-        row = String(row);
-      for (let i = 0; i < 10; i++) {
-        allInputs.push(`${i}${row}`);
-      }
-    });
-
-    const randomNumbers = generateRandomNumbers(allInputs.length, numberRange.min, numberRange.max, excludeList);
-    console.log(randomNumbers,"radndofd")
-
-    allInputs.forEach((id, index) => {
-      const input = document.getElementById(id);
-      if (input && randomNumbers[index] !== undefined) {
-        input.value = randomNumbers[index];
-      }
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', function () {
-    let neglectNumbers = [];
-
-    window.captureNeglectNumbers = function (nums) {
-      neglectNumbers = nums;
-    };
-
-    const generateSmallBtn = document.getElementById("generateSmallBtn");
-    if (generateSmallBtn) {
-      generateSmallBtn.addEventListener("click", () => {
-        fillInputs(['10', '20', '50', '100', '151', '251', '500', '1000'], 'multiInputForm', { min: 1, max: 500 }, neglectNumbers);
-      });
-    }
-
-    const generateBigBtn = document.getElementById("generateBigBtn");
-    if (generateBigBtn) {
-      generateBigBtn.addEventListener("click", () => {
-        fillInputs(['b500', 'b251', 'b151', 'b100', 'b51'], 'bigInputFormElement', { min: 501, max: 1500 }, neglectNumbers);
-      });
-    }
-  });
-</script>
+              const generateBigBtn = document.getElementById("generateBigBtn");
+              if (generateBigBtn) {
+                generateBigBtn.addEventListener("click", () => {
+                  fillInputs(['b500', 'b251', 'b151', 'b100', 'b51'], 'bigInputFormElement', {
+                    min: 501,
+                    max: 1500
+                  }, neglectNumbers);
+                });
+              }
+            });
+          </script>
 
 
 

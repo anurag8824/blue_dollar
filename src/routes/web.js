@@ -369,6 +369,7 @@ router.post('/admin/manager/settings/increaseWallet',adminController.middlewareA
 
     router.post("/lottery/set-result",lottery.setLotteryResult);
     router.post("/lottery/data",lottery.lotteryData)
+    router.get("/lottery/full-result", middlewareReact,lottery.lotteryFinalResult)
     
 
 

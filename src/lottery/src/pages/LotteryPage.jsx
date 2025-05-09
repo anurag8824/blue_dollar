@@ -25,6 +25,9 @@ const LotteryPage = () => {
 
   const navigate = useNavigate();
 
+  const url = "https://bluedoller.online"
+  // const url = "http://localhost:3000"
+
   const handleChange = (e, key) => {
     const { value } = e.target;
     setInputs((prev) => ({ ...prev, [key]: value }));
@@ -39,7 +42,7 @@ const LotteryPage = () => {
   useEffect(() => {
     async function fetch() {
       try {
-        const response = await axios.get("https://bluedoller.online/check-lottery");
+        const response = await axios.get(`${url}/check-lottery`);
         const latestLottery = response.data;
         console.log("Fetched Lotteries:", latestLottery);
   
@@ -65,7 +68,7 @@ const LotteryPage = () => {
   const [userData, setUserData] = useState(0);
   useEffect(() => {
     axios
-      .get("https://bluedoller.online/api/webapi/GetUserInfo")
+      .get(`${url}/api/webapi/GetUserInfo`)
       .then((res) => {
         console.log(res, "user info");
         setUserData(res?.data?.data?.money_user + res?.data?.data?.win_wallet);

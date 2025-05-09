@@ -3,10 +3,7 @@ const connection = require("../config/connectDB"); // Update the path if needed
 
 // Generate round_id like "20250501-0925"
 
-console.log("lottey controller is runnnign !")
-
-
-
+console.log("lottey controller is runnnign !");
 
 function generateRoundId() {
   const now = new Date();
@@ -21,7 +18,7 @@ cron.schedule("00 19 * * *", async () => {
     const roundId = generateRoundId();
 
     const sql = `INSERT INTO lottery (round_id, status, result,type) VALUES (?, ?, ?,?)`;
-    await connection.query(sql, [roundId, true, false,"small"]);
+    await connection.query(sql, [roundId, true, false, "small"]);
 
     console.log(
       `✅ [${new Date().toLocaleString()}] New lottery round created: ${roundId}`
@@ -56,8 +53,7 @@ cron.schedule("00 17 * * *", async () => {
   }
 });
 
-
-// weekly lottey inserting 
+// weekly lottey inserting
 
 // 🆕 Create lottery round every Monday at 12:00 AM
 cron.schedule("0 0 * * 1", async () => {
@@ -65,7 +61,7 @@ cron.schedule("0 0 * * 1", async () => {
     const roundId = generateRoundId();
 
     const sql = `INSERT INTO lottery (round_id, status, result,type) VALUES (?, ?, ?,?)`;
-    await connection.query(sql, [roundId, true, false,"big"]);
+    await connection.query(sql, [roundId, true, false, "big"]);
 
     console.log(
       `✅ [${new Date().toLocaleString()}] New weekly lottery round created: ${roundId}`
@@ -74,7 +70,6 @@ cron.schedule("0 0 * * 1", async () => {
     console.error("❌ Error inserting weekly lottery round:", error);
   }
 });
-
 
 // 🔁 Close the round every Sunday at 12:00 AM (start of Sunday)
 cron.schedule("0 0 * * 0", async () => {
@@ -99,7 +94,6 @@ cron.schedule("0 0 * * 0", async () => {
     console.error("❌ Error closing weekly lottery round:", error);
   }
 });
-
 
 const checkLottery = async (req, res) => {
   try {
@@ -139,7 +133,7 @@ const ticketBook = async (req, res) => {
     if (user[0].win_wallet + user[0]?.money < price)
       return res.status(204).json({
         msg: "Balance is too less ! Please Recharge in Your Account ",
-        isStatus:false
+        isStatus: false,
       });
 
     if (user[0].win_wallet >= price) {
@@ -162,7 +156,7 @@ const ticketBook = async (req, res) => {
     if (!row || row.length === 0) {
       return res
         .status(200)
-        .json({ msg: "This Round ID Lottery doesn't exist!" ,isStatus:false});
+        .json({ msg: "This Round ID Lottery doesn't exist!", isStatus: false });
     }
 
     // Insert into lottery_bet table
@@ -171,12 +165,22 @@ const ticketBook = async (req, res) => {
           VALUES (?, ?, ?, ?,?)
         `;
 
-    await connection.query(insertQuery, [betRoundId, number, price, type, phone]);
+    await connection.query(insertQuery, [
+      betRoundId,
+      number,
+      price,
+      type,
+      phone,
+    ]);
 
-    return res.status(200).json({ msg: "Bet placed successfully!" , isStatus:true});
+    return res
+      .status(200)
+      .json({ msg: "Bet placed successfully!", isStatus: true });
   } catch (error) {
     console.error("Error placing bet:", error);
-    return res.status(500).json({ msg: "Internal Server Error",isStatus:false });
+    return res
+      .status(500)
+      .json({ msg: "Internal Server Error", isStatus: false });
   }
 };
 
@@ -225,7 +229,7 @@ const lotteryList = async (req, res) => {
 const lottery_cal = async (id, data) => {
   if (!id || !data) return false;
 
-  console.log(data,"datanalhdjlkflmflfllo")
+  console.log(data, "datanalhdjlkflmflfllo");
 
   try {
     const [bet] = await connection.query(
@@ -234,20 +238,20 @@ const lottery_cal = async (id, data) => {
     );
 
     const Big_lottery = {
-      51:5100,
-      100:11000,
-      151:21000,
-      251:50000,
-      500:100000
-    }
+      51: 5100,
+      100: 11000,
+      151: 21000,
+      251: 50000,
+      500: 100000,
+    };
 
-    console.log(bet,"bet data jhkolphgvjbkl;")
+    console.log(bet, "bet data jhkolphgvjbkl;");
 
     if (bet.length === 0) return true;
 
     const promises = bet.map(async (item) => {
       const result = data[item.price];
-      console.log(result,"result data ")
+      console.log(result, "result data ");
       const isWin = result.includes(item.number);
 
       if (isWin && item.type == "small") {
@@ -294,10 +298,9 @@ const lottery_cal = async (id, data) => {
 };
 
 const setLotteryResult = async (req, res) => {
-
-  console.log(req.body,"get result")
+  console.log(req.body, "get result");
   const { type, data, roundId } = req.body;
-  
+
   if (!type || !data || !roundId)
     return res.status(203).json({ msg: "please share all details !" });
 
@@ -330,8 +333,6 @@ const lotteryData = async (req, res) => {
       [id]
     );
 
-
-
     return res.status(200).json({ data: rows });
   } catch (error) {
     console.error("❌ Error fetching lottery data:", error);
@@ -339,7 +340,37 @@ const lotteryData = async (req, res) => {
   }
 };
 
+console.log("check resuklttt1111 ");
 
+const lotteryFinalResult = async (req, res) => {
+  console.log("check resuklttt 122222 ");
+  try {
+    const [rows] = await connection.query("SELECT * FROM lottery_result");
+
+    // Format each row's `data` field
+    const formattedRows = rows.map((row) => {
+      try {
+        const parsedData = JSON.parse(row.data); // parse JSON string
+        const formattedData = Object.entries(parsedData).map(
+          ([key, value]) => ({
+            [key]: value.join(","),
+          })
+        );
+        return { ...row, data: formattedData }; // replace original data with formatted
+      } catch (e) {
+        // If parsing fails, keep original data
+        return { ...row, data: [] };
+      }
+    });
+
+    res.json({ success: true, data: formattedRows });
+  } catch (error) {
+    console.error("Error fetching lottery results:", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
+console.log("check resuklttt  3333");
 
 module.exports = {
   checkLottery,
@@ -347,5 +378,6 @@ module.exports = {
   history,
   lotteryList,
   setLotteryResult,
-  lotteryData
+  lotteryData,
+  lotteryFinalResult,
 };
