@@ -7680,7 +7680,7 @@
             e.preventDefault();
             let money = $('input:eq(0)').val().trim();
             let password = $('input:eq(1)').val().trim();
-            if (money && password && money >= 110) {
+            if (money && password && money >= 200) {
                 $.ajax({
                     type: "POST",
                     url: "/api/webapi/withdrawal",
@@ -7703,7 +7703,7 @@
                 alertMess('Please enter complete information', $(this));
             } else {
                 $(this).addClass('block-click');
-                alertMess('Withdrawal amount range 110-Unlimited', $(this));
+                alertMess('Withdrawal amount range 200-Unlimited', $(this));
             }
         });
     </script>
