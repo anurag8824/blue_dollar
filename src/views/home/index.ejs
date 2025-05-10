@@ -38,6 +38,46 @@
         fbq('init', '671566855156686');
         fbq('track', 'PageView');
     </script>
+
+<script>
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js')
+        .then(() => console.log('Service Worker registered'))
+        .catch((err) => console.error('Service Worker registration failed:', err));
+    }
+
+    // Handle PWA install prompt
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const btn = document.getElementById('downloadAppBtne');
+      console.log(btn,"bttn")
+      btn.style.display = 'inline-block';
+
+      btn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+          try {
+            deferredPrompt.prompt();
+            const result = await deferredPrompt.userChoice;
+            if (result.outcome === 'accepted') {
+              alert('PWA installation started successfully.');
+            } else {
+              alert('User dismissed the PWA install prompt.');
+            }
+            deferredPrompt = null;
+          } catch (error) {
+            alert('Error during installation: ' + error.message);
+          }
+        } else {
+          alert('Install prompt not available.');
+        }
+      });
+    });
+  </script>
+
+
     <noscript><img height="1" width="1" style="display:none"
             src="https://www.facebook.com/tr?id=671566855156686&ev=PageView&noscript=1" /></noscript>
 
@@ -109,27 +149,10 @@
 </script> -->
 
 
-<script>
-    let deferredPrompt;
 
-    window.addEventListener('beforeinstallprompt', (e) => {
-      // Prevent the mini-infobar from appearing
-      e.preventDefault();
-      deferredPrompt = e;
 
-      // Show the install button
-      const btn = document.getElementById('downloadAppBtne');
-      btn.style.display = 'inline-block';
 
-      btn.addEventListener('click', async () => {
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        console.log(`User response to install: ${outcome}`);
-        deferredPrompt = null;
-        btn.style.display = 'none'; // Hide button after interaction
-      });
-    });
-  </script>
+
 
 
 <body style="font-size: 12px; max-width: 100%; overflow-x: hidden;">
@@ -175,7 +198,7 @@
                              color: black;">Download APK</div>
                             </a> -->
 
-                            <a href="/Blue Doller.apk" download  class="btn btn-danger" style="padding: 8px 10px; font-size: 10px;">Download App</a>
+                            <button id="downloadAppBtne" class="btn btn-danger" style="padding: 8px 10px; font-size: 10px;">Download App</button>
 
                         </div>
                     </div>
